@@ -217,7 +217,7 @@ namespace Server
                 case "create_account": ReceivedCreateAccount(data); break;
                 case "broadcast": ReceivedBroadcast(data); break;
                 case "patient_data": ReceivedPatientData(data); break;
-                //case "check_bikes": ReceivedCheckBikes(data); break;
+                case "check_bikes": ReceivedCheckBikes(); break;
             }
 
             /*
@@ -262,35 +262,15 @@ namespace Server
         //    }
         //}
 
-
-        private void ReceivedPatientData(string data)
+        private void ReceivedLogin(dynamic data)
         {
-            dynamic patientNameData = JsonConvert.DeserializeObject(data);
-            string patientName = patientNameData.patientName;
-            int origin = patientNameData.origin;
+            dynamic loginData = JsonConvert.DeserializeObject(data);
+            string username = loginData.username;
+            string password = loginData.password;
+            int origin = loginData.origin;
 
-            SendPatientData(patientName, origin);
-        }
+            HandleLogin(username, password, origin);
 
-        private void SendPatientData(string patientName, int origin)
-        {
-            FindConnection(origin).SendData(patientName);
-        }
-
-        private void ReceivedBroadcast(string data)
-        {
-            dynamic messageData = JsonConvert.DeserializeObject(data);
-            string message = messageData.message;
-
-            SendMessageToAll(message);
-        }
-
-        private void SendMessageToAll(string message)
-        {
-            foreach(Connection connection in connectionList)
-            {
-                connection.SendData(message);
-            }
         }
 
         private void ReceivedCreateAccount(string data)
@@ -303,6 +283,48 @@ namespace Server
             HandleDoctorAccount(username, password, origin);
         }
 
+        private void ReceivedPatientData(string data)
+        {
+            dynamic patientNameData = JsonConvert.DeserializeObject(data);
+            string patientName = patientNameData.patientName;
+            int origin = patientNameData.origin;
+
+            SendPatientData(patientName, origin);
+        }
+
+        private void ReceivedBroadcast(string data)
+        {
+            dynamic messageData = JsonConvert.DeserializeObject(data);
+            string message = messageData.message;
+
+            SendMessageToAll(message);
+        }
+
+        private void ReceivedCheckBikes()
+        {
+            //string message = "";
+            //foreach (ServerClient Client in Clients)
+            //{
+            //    if (Client.ClientName.Contains("Bike") && Client.Available == true)
+            //        message = "bike_available";
+            //}
+            //WriteTextMessage(client, message);
+        }
+
+        private void SendPatientData(string patientName, int origin)
+        {
+            FindConnection(origin).SendData(patientName);
+        }
+
+        private void SendMessageToAll(string message)
+        {
+            foreach(Connection connection in connectionList)
+            {
+                connection.SendData(message);
+            }
+        }
+
+
         private void HandleDoctorAccount(string username, string password, int origin)
         {
             if (doctorAccounts.Keys.Contains(username))
@@ -314,16 +336,6 @@ namespace Server
             }    
         }
 
-        private void ReceivedLogin(dynamic data)
-        {
-            dynamic loginData = JsonConvert.DeserializeObject(data);
-            string username = loginData.username;
-            string password = loginData.password;
-            int origin = loginData.origin;
-
-            HandleLogin(username, password, origin);
-
-        }
 
         private void HandleLogin(string username,string password,int origin)
         {

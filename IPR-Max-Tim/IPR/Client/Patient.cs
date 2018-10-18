@@ -8,28 +8,15 @@ namespace IPR.Client
 {
     class Patient
     {
-        public string name { get; set; }
-        public List<PointOfTime> timeList { get; set; }
+        public int Age { get; set; }
+        public string Sex { get; set; }
+        public int Gewicht { get; set; }
 
-        public Patient()
+        public Patient(int Age, string Sex, int Gewicht)
         {
-            timeList = new List<PointOfTime>();
-        }
-
-        public Patient(string patientName)
-        {
-            name = patientName;
-            timeList = new List<PointOfTime>();
-        }
-
-        public void addPointOfTime(PointOfTime point)
-        {
-            timeList.Add(point);
-        }
-
-        public void removePointOfTime(PointOfTime point)
-        {
-            timeList.Remove(point);
+            this.Age = Age;
+            this.Sex = Sex;
+            this.Gewicht = Gewicht;
         }
     }
 }
