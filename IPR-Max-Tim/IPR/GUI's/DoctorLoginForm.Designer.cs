@@ -48,6 +48,7 @@
             // 
             this.PasswordTextBox.Location = new System.Drawing.Point(166, 73);
             this.PasswordTextBox.Name = "PasswordTextBox";
+            this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(155, 22);
             this.PasswordTextBox.TabIndex = 1;
             // 
@@ -80,6 +81,7 @@
             this.CancelLoginButton.TabIndex = 4;
             this.CancelLoginButton.Text = "Cancel";
             this.CancelLoginButton.UseVisualStyleBackColor = false;
+            this.CancelLoginButton.Click += new System.EventHandler(this.CancelLoginButton_Click);
             // 
             // CreateAccButton
             // 
@@ -92,6 +94,7 @@
             this.CreateAccButton.TabIndex = 5;
             this.CreateAccButton.Text = "Create new account";
             this.CreateAccButton.UseVisualStyleBackColor = false;
+            this.CreateAccButton.Click += new System.EventHandler(this.CreateAccButton_Click);
             // 
             // LoginButton
             // 
@@ -104,13 +107,16 @@
             this.LoginButton.TabIndex = 6;
             this.LoginButton.Text = "Login";
             this.LoginButton.UseVisualStyleBackColor = false;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // DoctorLoginForm
             // 
+            this.AcceptButton = this.LoginButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(418, 240);
+            this.CancelButton = this.CancelLoginButton;
+            this.ClientSize = new System.Drawing.Size(418, 238);
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.CreateAccButton);
             this.Controls.Add(this.CancelLoginButton);
@@ -118,6 +124,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.UsernameTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DoctorLoginForm";
             this.Text = "DoctorLoginForm";
             this.ResumeLayout(false);

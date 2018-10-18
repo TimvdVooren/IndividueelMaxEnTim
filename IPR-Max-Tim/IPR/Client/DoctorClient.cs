@@ -13,19 +13,10 @@ namespace IPR.Client
     class DoctorClient
     {
         private static TcpClient client;
-
-
+        
         public DoctorClient()
         {
             client = new TcpClient(GetLocalIPAddress(), 6666);
-
-            string sort = "doctor";
-            string clientSort = JsonConvert.SerializeObject(new
-            {
-                sort = sort,
-            });
-
-            WriteTextMessage(client, clientSort);
         }
 
         public bool GuiDataToServer(string command, string username, string password)
@@ -43,9 +34,9 @@ namespace IPR.Client
 
             });
 
-            WriteTextMessage(client, createJsonCommand(command, loginData));
+            WriteTextMessage(createJsonCommand(command, loginData));
 
-            string responseFromServer = ReadTextMessage(client);
+            string responseFromServer = ReadTextMessage();
             if (responseFromServer == "AccountExists" && command == "login")
                 loginCorrect = true;
             if (responseFromServer == "AccountCreated")
@@ -66,50 +57,7 @@ namespace IPR.Client
 
             return new Tuple<string, string>(encryptedUsername, encryptedPassword);
         }
-
-        public void StartCourse(string bikeID, double power, double time, double distance)
-        {
-            string data = JsonConvert.SerializeObject(new
-            {
-                bikeID = bikeID,
-                power = power,
-                time = time,
-                distance = distance,
-            });
-            WriteTextMessage(client, createJsonCommand("startcourse", data));
-        }
-
-        public void EndCourse(string bikeID)
-        {
-            string data = JsonConvert.SerializeObject(new
-            {
-                bikeID = bikeID,
-            });
-            WriteTextMessage(client, createJsonCommand("endcourse", data));
-        }
-
-
-        public void SendChatMessage(string bikeID, string message)
-        {
-            string data = JsonConvert.SerializeObject(new
-            {
-                bikeID = bikeID,
-                message = message,
-            });
-
-            WriteTextMessage(client, createJsonCommand("chat", data));
-        }
-
-        public void SendBroadcast(string message)
-        {
-            string data = JsonConvert.SerializeObject(new
-            {
-                message = message,
-            });
-
-            WriteTextMessage(client, createJsonCommand("broadcast", data));
-        }
-
+        
         public void GetPatientData(string patientName)
         {
             string data = JsonConvert.SerializeObject(new
@@ -117,35 +65,13 @@ namespace IPR.Client
                 patientName = patientName,
             });
 
-            WriteTextMessage(client, createJsonCommand("patient_data", data));
-            decodeJsonCommand(ReadTextMessage(client));
-        }
-
-        public bool CheckBikes()
-        {
-            WriteTextMessage(client, createJsonCommand("check_bikes", ""));
-            string response = ReadTextMessage(client);
-            if (response == "bike_available")
-                return true;
-            else
-                return false;
-        }
-
-        public string AddPatientToBike(string patientName)
-        {
-            string data = JsonConvert.SerializeObject(new
-            {
-                patientName = patientName,
-            });
-            WriteTextMessage(client, createJsonCommand("add_patient", data));
-
-            string bikeID = ReadTextMessage(client);
-            return bikeID;
+            WriteTextMessage(createJsonCommand("patient_data", data));
+            decodeJsonCommand(ReadTextMessage());
         }
 
         public void Disconnect()
         {
-            WriteTextMessage(client, createJsonCommand("client_disconnect", ""));
+            WriteTextMessage(createJsonCommand("client_disconnect", ""));
             client.Close();
         }
 
@@ -172,13 +98,13 @@ namespace IPR.Client
             }
         }
 
-        private static string ReadTextMessage(TcpClient client)
+        private static string ReadTextMessage()
         {
             StreamReader streamReader = new StreamReader(client.GetStream(), Encoding.UTF8);
             return streamReader.ReadLine();
         }
 
-        public static void WriteTextMessage(TcpClient client, string message)
+        public static void WriteTextMessage(string message)
         {
             StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.UTF8);
             streamWriter.WriteLine(message);

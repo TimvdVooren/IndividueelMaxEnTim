@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -9,17 +11,156 @@ namespace Server
 {
     class ServerClient
     {
-        public TcpClient Client { get; }
-        public string ClientName { get; set; }
-        public string PatientName { get; set; }
-        public bool Available { get; set; }
+        private TcpClient Client;
 
         public ServerClient(TcpClient Client)
         {
             this.Client = Client;
-            this.ClientName = "";
-            this.PatientName = "";
-            this.Available = true;
+        }
+
+        public void HandleClientThread()
+        {
+            bool done = false;
+            while (!done && Client.Connected)
+            {
+                HandleData(ReadTextMessage());
+            }
+            Client.Close();
+        }
+
+        private void HandleData(string message)
+        {
+            dynamic receivedData = JsonConvert.DeserializeObject(message);
+            string command = receivedData.command;
+            string data = receivedData.data;
+
+            switch (command)
+            {
+                case "login": ReceivedLogin(data); break;
+                case "create_account": ReceivedCreateAccount(data); break;
+                case "patient_data": ReceivedPatientData(data); break;
+                case "client_disconnect": ReceivedClientDisconnect(); break;
+            }
+        }
+
+        private void ReceivedLogin(string data)
+        {
+            dynamic loginData = JsonConvert.DeserializeObject(data);
+            string username = loginData.username;
+            string password = loginData.password;
+
+
+            Console.WriteLine("gelezen username = {0}", username);
+
+            if (IsLoginCorrect(username, password))
+                WriteTextMessage("AccountExists");
+            else
+                WriteTextMessage("AccountDoesntExist");
+        }
+
+        private void ReceivedCreateAccount(string data)
+        {
+            dynamic accountData = JsonConvert.DeserializeObject(data);
+            string username = accountData.username;
+            string password = accountData.password;
+
+            if (Server.doctorAccounts.Keys.Contains(username))
+                WriteTextMessage("AccountExists");
+            else
+            {
+                Server.AddDoctorAccount(username, password);
+                WriteTextMessage("AccountCreated");
+            }
+        }
+
+        private void ReceivedClientDisconnect()
+        {
+            Client.Close();
+        }
+
+        private void ReceivedPatientData(string data)
+        {
+            dynamic patientNameData = JsonConvert.DeserializeObject(data);
+            String patientName = patientNameData.patientName;
+            WriteTextMessage(createJsonCommand("patient_data", GetAllDataFromUser(patientName)));
+        }
+
+        private bool IsLoginCorrect(String username, String password)
+        {
+            bool correctLogin = false;
+            if (username != "" && password != "")
+            {
+                foreach (string userKey in Server.doctorAccounts.Keys)
+                {
+                    if (userKey == username && Server.doctorAccounts[userKey] == password)
+                    {
+                        correctLogin = true;
+                    }
+                }
+            }
+            return correctLogin;
+        }
+
+        private string GetAllDataFromUser(string user)
+        {
+            //Patient searchedPatient = null;
+            //foreach (Patient patient in patients)
+            //{
+            //    if (patient.name == user)
+            //    {
+            //        searchedPatient = patient;
+            //    }
+            //}
+            //return JsonConvert.SerializeObject(searchedPatient);
+            return "";
+        }
+
+        private string createJsonCommand(string command, string data)
+        {
+            string output = JsonConvert.SerializeObject(new
+            {
+                command = command,
+                data = data,
+
+            });
+            return output;
+        }
+
+        private void WriteTextMessage(string message)
+        {
+            try
+            {
+                StreamWriter stream = new StreamWriter(Client.GetStream(), Encoding.UTF32);
+                stream.WriteLine(message);
+                stream.Flush();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Er is een fout opgetreden in de verbinding");
+            }
+        }
+
+        private string ReadTextMessage()
+        {
+            string line = "";
+            try
+            {
+                StreamReader stream = new StreamReader(Client.GetStream(), Encoding.UTF32);
+                if (Client.Connected)
+                    line = stream.ReadLine();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("Er is een fout opgetreden in de verbinding");
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Er is een fout opgetreden in de verbinding");
+            }
+
+            if (line == "" || line == null)
+                Console.WriteLine(line);
+            return line;
         }
     }
 }

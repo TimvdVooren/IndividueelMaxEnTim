@@ -17,7 +17,7 @@ namespace IPR
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DoctorInput());
+            Application.Run(new DoctorLoginForm());
         }
     }
 }
