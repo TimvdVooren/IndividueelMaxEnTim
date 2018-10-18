@@ -58,19 +58,37 @@
     <Compile Include="Client\DoctorClient.cs" />
     <Compile Include="Client\Patient.cs" />
     <Compile Include="DataHandling\SerialDataHandler.cs" />
+    <Compile Include="GUI%27s\AddPatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI%27s\AddPatientForm.Designer.cs">
+      <DependentUpon>AddPatientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI%27s\DoctorLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI%27s\DoctorLoginForm.Designer.cs">
       <DependentUpon>DoctorLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI%27s\SpecialistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI%27s\SpecialistForm.Designer.cs">
+      <DependentUpon>SpecialistForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialCommunication\IX7DataListener.cs" />
     <Compile Include="SerialCommunication\SerialManager.cs" />
     <Compile Include="SerialCommunication\X7Data.cs" />
+    <EmbeddedResource Include="GUI%27s\AddPatientForm.resx">
+      <DependentUpon>AddPatientForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI%27s\DoctorLoginForm.resx">
       <DependentUpon>DoctorLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI%27s\SpecialistForm.resx">
+      <DependentUpon>SpecialistForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
