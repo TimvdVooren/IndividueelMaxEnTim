@@ -53,6 +53,7 @@
             this.CancelButton.TabIndex = 0;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = false;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // AddPatientButton
             // 
@@ -147,6 +148,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
+            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(411, 353);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);

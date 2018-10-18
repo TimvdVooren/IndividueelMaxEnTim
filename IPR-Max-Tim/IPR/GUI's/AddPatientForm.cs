@@ -39,5 +39,10 @@ namespace IPR.GUI_s
             else
                 MessageBox.Show("Please fill in all required fields with valid data");
         }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }
