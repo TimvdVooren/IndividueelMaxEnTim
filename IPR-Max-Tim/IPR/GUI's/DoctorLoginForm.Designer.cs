@@ -39,43 +39,49 @@
             // 
             // UsernameTextBox
             // 
-            this.UsernameTextBox.Location = new System.Drawing.Point(166, 32);
+            this.UsernameTextBox.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.UsernameTextBox.Location = new System.Drawing.Point(138, 35);
             this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(155, 22);
+            this.UsernameTextBox.Size = new System.Drawing.Size(197, 28);
             this.UsernameTextBox.TabIndex = 0;
             // 
             // PasswordTextBox
             // 
-            this.PasswordTextBox.Location = new System.Drawing.Point(166, 73);
+            this.PasswordTextBox.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.PasswordTextBox.Location = new System.Drawing.Point(138, 77);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
-            this.PasswordTextBox.Size = new System.Drawing.Size(155, 22);
+            this.PasswordTextBox.Size = new System.Drawing.Size(197, 28);
             this.PasswordTextBox.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(74, 32);
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.label1.Location = new System.Drawing.Point(23, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 17);
+            this.label1.Size = new System.Drawing.Size(98, 21);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Username";
+            this.label1.Text = "Username:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(74, 76);
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.label2.Location = new System.Drawing.Point(23, 80);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 17);
+            this.label2.Size = new System.Drawing.Size(93, 21);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password:";
             // 
             // CancelLoginButton
             // 
             this.CancelLoginButton.BackColor = System.Drawing.Color.Silver;
+            this.CancelLoginButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelLoginButton.FlatAppearance.BorderSize = 0;
             this.CancelLoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CancelLoginButton.Location = new System.Drawing.Point(283, 165);
+            this.CancelLoginButton.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.CancelLoginButton.Location = new System.Drawing.Point(138, 165);
             this.CancelLoginButton.Name = "CancelLoginButton";
             this.CancelLoginButton.Size = new System.Drawing.Size(97, 35);
             this.CancelLoginButton.TabIndex = 4;
@@ -88,9 +94,10 @@
             this.CreateAccButton.BackColor = System.Drawing.Color.Silver;
             this.CreateAccButton.FlatAppearance.BorderSize = 0;
             this.CreateAccButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CreateAccButton.Location = new System.Drawing.Point(186, 121);
+            this.CreateAccButton.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.CreateAccButton.Location = new System.Drawing.Point(138, 121);
             this.CreateAccButton.Name = "CreateAccButton";
-            this.CreateAccButton.Size = new System.Drawing.Size(194, 38);
+            this.CreateAccButton.Size = new System.Drawing.Size(240, 38);
             this.CreateAccButton.TabIndex = 5;
             this.CreateAccButton.Text = "Create new account";
             this.CreateAccButton.UseVisualStyleBackColor = false;
@@ -101,9 +108,10 @@
             this.LoginButton.BackColor = System.Drawing.Color.Silver;
             this.LoginButton.FlatAppearance.BorderSize = 0;
             this.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoginButton.Location = new System.Drawing.Point(55, 121);
+            this.LoginButton.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.LoginButton.Location = new System.Drawing.Point(27, 121);
             this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(125, 38);
+            this.LoginButton.Size = new System.Drawing.Size(105, 38);
             this.LoginButton.TabIndex = 6;
             this.LoginButton.Text = "Login";
             this.LoginButton.UseVisualStyleBackColor = false;
@@ -116,7 +124,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.CancelButton = this.CancelLoginButton;
-            this.ClientSize = new System.Drawing.Size(418, 238);
+            this.ClientSize = new System.Drawing.Size(389, 238);
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.CreateAccButton);
             this.Controls.Add(this.CancelLoginButton);

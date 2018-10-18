@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IPR.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,13 +11,33 @@ using System.Windows.Forms;
 
 namespace IPR.GUI_s
 {
-    public partial class AddPatientForm : Form
+    partial class AddPatientForm : Form
     {
-        public AddPatientForm()
+        private DoctorClient DoctorClient;
+
+        public AddPatientForm(DoctorClient DoctorClient)
         {
             InitializeComponent();
+            this.DoctorClient = DoctorClient;
         }
 
-        
+        private void AddPatientButton_Click(object sender, EventArgs e)
+        {
+            string patientName = name.Text;
+            int patientAge;
+            int.TryParse(age.Text, out patientAge);
+            string patientGender = gender.Text;
+            int patientWeight;
+            int.TryParse(weight.Text, out patientWeight);
+
+            if (name.Text != string.Empty && age.Text != string.Empty && gender.Text != string.Empty && weight.Text != string.Empty && patientAge != 0 && patientWeight != 0)
+            {
+                Patient patient = new Patient(patientName, patientAge, patientGender, patientWeight);
+                DoctorClient.AddPatient(patient);
+                this.Dispose();
+            }
+            else
+                MessageBox.Show("Please fill in all required fields with valid data");
+        }
     }
 }

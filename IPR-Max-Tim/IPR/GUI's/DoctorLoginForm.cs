@@ -36,6 +36,8 @@ namespace IPR.GUI_s
                 string Password = PasswordTextBox.Text;
                 if (DoctorClient.GuiDataToServer("login", Username, Password))
                 {
+                    SpecialistForm specialistForm = new SpecialistForm(DoctorClient);
+                    specialistForm.Show();
                     this.Visible = false;
                 }
                 else

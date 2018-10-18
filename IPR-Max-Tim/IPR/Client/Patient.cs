@@ -8,14 +8,16 @@ namespace IPR.Client
 {
     class Patient
     {
+        public string Name { get; set; }
         public int Age { get; set; }
-        public string Sex { get; set; }
+        public string Gender { get; set; }
         public int Gewicht { get; set; }
 
-        public Patient(int Age, string Sex, int Gewicht)
+        public Patient(string Name, int Age, string Gender, int Gewicht)
         {
+            this.Name = Name;
             this.Age = Age;
-            this.Sex = Sex;
+            this.Gender = Gender;
             this.Gewicht = Gewicht;
         }
     }

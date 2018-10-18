@@ -81,6 +81,7 @@
             this.AddPatientButton.TabIndex = 3;
             this.AddPatientButton.Text = "Add Patient";
             this.AddPatientButton.UseVisualStyleBackColor = false;
+            this.AddPatientButton.Click += new System.EventHandler(this.AddPatientButton_Click);
             // 
             // HistoricalDataButton
             // 
@@ -95,6 +96,7 @@
             this.HistoricalDataButton.TabIndex = 2;
             this.HistoricalDataButton.Text = "Historical Data";
             this.HistoricalDataButton.UseVisualStyleBackColor = false;
+            this.HistoricalDataButton.Click += new System.EventHandler(this.HistoricalDataButton_Click);
             // 
             // PatientsButton
             // 

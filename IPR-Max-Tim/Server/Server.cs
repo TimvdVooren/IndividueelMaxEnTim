@@ -13,19 +13,17 @@ namespace Server
 {
     class Server
     {
-        private static TcpListener listener;
-        public static List<Patient> patients = new List<Patient>();
-        public static SortedList<string, string> doctorAccounts;
+        private static TcpListener Listener;
+        public static SortedList<string, string> DoctorAccounts;
 
         public Server()
         {
             Console.WriteLine("Started a server at port 6666");
-            listener = new TcpListener(IPAddress.Any, 6666);
-            listener.Start();
+            Listener = new TcpListener(IPAddress.Any, 6666);
+            Listener.Start();
 
-            listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);
-
-            CheckPatientDataFile();
+            Listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);
+            
             CheckDoctorDataFile();
 
             AddTestAccount();
@@ -35,10 +33,10 @@ namespace Server
 
         private static void OnPersonConnect(IAsyncResult ar)
         {
-            TcpClient client = listener.EndAcceptTcpClient(ar);
+            TcpClient client = Listener.EndAcceptTcpClient(ar);
             ServerClient serverClient = new ServerClient(client);
             serverClient.HandleClientThread();
-            listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);
+            Listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);
         }
 
         private void PatientLogin(string receivedData)
@@ -63,16 +61,16 @@ namespace Server
 
         public static void AddDoctorAccount(string Username, string Password)
         {
-            if (doctorAccounts == null)
+            if (DoctorAccounts == null)
             {
-                doctorAccounts = new SortedList<string, string>();
+                DoctorAccounts = new SortedList<string, string>();
             }
-            if (!doctorAccounts.ContainsKey(Username))
+            if (!DoctorAccounts.ContainsKey(Username))
             {
-                doctorAccounts.Add(Username, Password);
+                DoctorAccounts.Add(Username, Password);
             }
 
-            string JsonAccounts = JsonConvert.SerializeObject(doctorAccounts);
+            string JsonAccounts = JsonConvert.SerializeObject(DoctorAccounts);
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "DoctorData.txt");
             File.WriteAllText(path, JsonAccounts);
         }
@@ -83,48 +81,34 @@ namespace Server
             data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
             string encryptedData = System.Text.Encoding.ASCII.GetString(data);
 
-            if (doctorAccounts == null)
+            if (DoctorAccounts == null)
             {
-                doctorAccounts = new SortedList<string, string>();
+                DoctorAccounts = new SortedList<string, string>();
             }
-            if (!doctorAccounts.ContainsKey(encryptedData))
+            if (!DoctorAccounts.ContainsKey(encryptedData))
             {
-                doctorAccounts.Add(encryptedData, encryptedData);
+                DoctorAccounts.Add(encryptedData, encryptedData);
             }
 
-            string JsonAccounts = JsonConvert.SerializeObject(doctorAccounts);
+            string JsonAccounts = JsonConvert.SerializeObject(DoctorAccounts);
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "DoctorData.txt");
             File.WriteAllText(path, JsonAccounts);
         }
         
-        public static void WritePatientsToFile()
+        public static void WritePatientToFile(Patient patient)
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "PatientData.txt");
-            string data = JsonConvert.SerializeObject(patients);
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), patient.Name + ".txt");
+            string data = JsonConvert.SerializeObject(patient);
             File.WriteAllText(path, data);
         }
 
-        private void CheckPatientDataFile()
+        public static string ReadPatientFromFile(string patientName)
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "PatientData.txt");
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("Er is nog geen File gevonden waarin de al aangemaakte patienten data staat, dus deze wordt aangemaakt!");
-                FileStream myFile = File.Create(path);
-                myFile.Close();
-                patients = new List<Patient>();
-            }
-            else if (File.Exists(path))
-            {
-                Console.WriteLine("Er is een bestand gevonden met bestaande patienten data");
-                string patientData = File.ReadAllText(path);
-                patients = JsonConvert.DeserializeObject<List<Patient>>(patientData);
-                if (patients == null)
-                {
-                    patients = new List<Patient>();
-                    patients.Add(new Patient(18, "male", 95));
-                }
-            }
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), patientName + ".txt");
+            if (File.Exists(path))
+                return File.ReadAllText(path);
+            else
+                return "PatientNotFound";
         }
 
         private void CheckDoctorDataFile()
@@ -140,7 +124,7 @@ namespace Server
             {
                 Console.WriteLine("Er is een bestand gevonden met bestaande doctorAccounts");
                 string doctorData = File.ReadAllText(path);
-                doctorAccounts = JsonConvert.DeserializeObject<SortedList<string, string>>(doctorData);
+                DoctorAccounts = JsonConvert.DeserializeObject<SortedList<string, string>>(doctorData);
             }
         }
     }

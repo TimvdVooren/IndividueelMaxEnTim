@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IPR.Client;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,13 +11,25 @@ using System.Windows.Forms;
 
 namespace IPR.GUI_s
 {
-    public partial class SpecialistForm : Form
+    partial class SpecialistForm : Form
     {
-        public SpecialistForm()
+        private DoctorClient DoctorClient;
+
+        public SpecialistForm(DoctorClient DoctorClient)
         {
             InitializeComponent();
+            this.DoctorClient = DoctorClient;
         }
 
-       
+        private void AddPatientButton_Click(object sender, EventArgs e)
+        {
+            AddPatientForm addPatient = new AddPatientForm(DoctorClient);
+            addPatient.Show();
+        }
+
+        private void HistoricalDataButton_Click(object sender, EventArgs e)
+        {
+            //GUI VOOR INPUT PATIENTNAME
+        }
     }
 }

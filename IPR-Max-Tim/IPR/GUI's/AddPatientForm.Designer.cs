@@ -30,10 +30,10 @@
         {
             this.CancelButton = new System.Windows.Forms.Button();
             this.AddPatientButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.gender = new System.Windows.Forms.TextBox();
+            this.age = new System.Windows.Forms.TextBox();
+            this.name = new System.Windows.Forms.TextBox();
+            this.weight = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,6 +43,7 @@
             // CancelButton
             // 
             this.CancelButton.BackColor = System.Drawing.Color.Silver;
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelButton.FlatAppearance.BorderSize = 0;
             this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -56,6 +57,7 @@
             // AddPatientButton
             // 
             this.AddPatientButton.BackColor = System.Drawing.Color.Silver;
+            this.AddPatientButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.AddPatientButton.FlatAppearance.BorderSize = 0;
             this.AddPatientButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddPatientButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -65,34 +67,39 @@
             this.AddPatientButton.TabIndex = 1;
             this.AddPatientButton.Text = "Add Patient";
             this.AddPatientButton.UseVisualStyleBackColor = false;
+            this.AddPatientButton.Click += new System.EventHandler(this.AddPatientButton_Click);
             // 
-            // textBox1
+            // gender
             // 
-            this.textBox1.Location = new System.Drawing.Point(224, 147);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(145, 22);
-            this.textBox1.TabIndex = 2;
+            this.gender.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.gender.Location = new System.Drawing.Point(224, 147);
+            this.gender.Name = "gender";
+            this.gender.Size = new System.Drawing.Size(145, 28);
+            this.gender.TabIndex = 2;
             // 
-            // textBox2
+            // age
             // 
-            this.textBox2.Location = new System.Drawing.Point(224, 98);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(145, 22);
-            this.textBox2.TabIndex = 3;
+            this.age.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.age.Location = new System.Drawing.Point(224, 98);
+            this.age.Name = "age";
+            this.age.Size = new System.Drawing.Size(145, 28);
+            this.age.TabIndex = 3;
             // 
-            // textBox3
+            // name
             // 
-            this.textBox3.Location = new System.Drawing.Point(224, 49);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(145, 22);
-            this.textBox3.TabIndex = 4;
+            this.name.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.name.Location = new System.Drawing.Point(224, 49);
+            this.name.Name = "name";
+            this.name.Size = new System.Drawing.Size(145, 28);
+            this.name.TabIndex = 4;
             // 
-            // textBox4
+            // weight
             // 
-            this.textBox4.Location = new System.Drawing.Point(224, 192);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(145, 22);
-            this.textBox4.TabIndex = 5;
+            this.weight.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.weight.Location = new System.Drawing.Point(224, 192);
+            this.weight.Name = "weight";
+            this.weight.Size = new System.Drawing.Size(145, 28);
+            this.weight.TabIndex = 5;
             // 
             // label1
             // 
@@ -136,6 +143,7 @@
             // 
             // AddPatientForm
             // 
+            this.AcceptButton = this.AddPatientButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
@@ -144,12 +152,15 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.weight);
+            this.Controls.Add(this.name);
+            this.Controls.Add(this.age);
+            this.Controls.Add(this.gender);
             this.Controls.Add(this.AddPatientButton);
             this.Controls.Add(this.CancelButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddPatientForm";
             this.Text = "AddPatientForm";
             this.ResumeLayout(false);
@@ -161,10 +172,10 @@
 
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button AddPatientButton;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox gender;
+        private System.Windows.Forms.TextBox age;
+        private System.Windows.Forms.TextBox name;
+        private System.Windows.Forms.TextBox weight;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

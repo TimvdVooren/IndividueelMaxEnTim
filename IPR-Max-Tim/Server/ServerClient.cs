@@ -38,6 +38,7 @@ namespace Server
             {
                 case "login": ReceivedLogin(data); break;
                 case "create_account": ReceivedCreateAccount(data); break;
+                case "add_patient": ReceivedAddPatient(data); break;
                 case "patient_data": ReceivedPatientData(data); break;
                 case "client_disconnect": ReceivedClientDisconnect(); break;
             }
@@ -64,13 +65,19 @@ namespace Server
             string username = accountData.username;
             string password = accountData.password;
 
-            if (Server.doctorAccounts.Keys.Contains(username))
+            if (Server.DoctorAccounts.Keys.Contains(username))
                 WriteTextMessage("AccountExists");
             else
             {
                 Server.AddDoctorAccount(username, password);
                 WriteTextMessage("AccountCreated");
             }
+        }
+
+        private void ReceivedAddPatient(string data)
+        {
+            Patient patient = JsonConvert.DeserializeObject<Patient>(data);
+            Server.WritePatientToFile(patient);
         }
 
         private void ReceivedClientDisconnect()
@@ -81,8 +88,10 @@ namespace Server
         private void ReceivedPatientData(string data)
         {
             dynamic patientNameData = JsonConvert.DeserializeObject(data);
-            String patientName = patientNameData.patientName;
-            WriteTextMessage(createJsonCommand("patient_data", GetAllDataFromUser(patientName)));
+            string patientName = patientNameData.patientName;
+
+            string patientData = Server.ReadPatientFromFile(patientName);
+            WriteTextMessage(patientData);
         }
 
         private bool IsLoginCorrect(String username, String password)
@@ -90,9 +99,9 @@ namespace Server
             bool correctLogin = false;
             if (username != "" && password != "")
             {
-                foreach (string userKey in Server.doctorAccounts.Keys)
+                foreach (string userKey in Server.DoctorAccounts.Keys)
                 {
-                    if (userKey == username && Server.doctorAccounts[userKey] == password)
+                    if (userKey == username && Server.DoctorAccounts[userKey] == password)
                     {
                         correctLogin = true;
                     }
@@ -104,7 +113,7 @@ namespace Server
         private string GetAllDataFromUser(string user)
         {
             //Patient searchedPatient = null;
-            //foreach (Patient patient in patients)
+            //foreach (Patient patient in Patients)
             //{
             //    if (patient.name == user)
             //    {
@@ -115,7 +124,7 @@ namespace Server
             return "";
         }
 
-        private string createJsonCommand(string command, string data)
+        private string CreateJsonCommand(string command, string data)
         {
             string output = JsonConvert.SerializeObject(new
             {

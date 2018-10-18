@@ -8,15 +8,16 @@ namespace Server
 {
     class Patient
     {
-        public string PatientName { get; set; }
+        public string Name { get; set; }
         public int Age { get; set; }
-        public string Sex { get; set; }
+        public string Gender { get; set; }
         public int Weight { get; set; }
 
-        public Patient(int Age, string Sex, int Weight)
+        public Patient(string Name, int Age, string Gender, int Weight)
         {
+            this.Name = Name;
             this.Age = Age;
-            this.Sex = Sex;
+            this.Gender = Gender;
             this.Weight = Weight;
         }
     }

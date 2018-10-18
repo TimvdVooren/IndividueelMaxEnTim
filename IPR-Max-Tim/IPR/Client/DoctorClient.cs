@@ -34,7 +34,7 @@ namespace IPR.Client
 
             });
 
-            WriteTextMessage(createJsonCommand(command, loginData));
+            WriteTextMessage(CreateJsonCommand(command, loginData));
 
             string responseFromServer = ReadTextMessage();
             if (responseFromServer == "AccountExists" && command == "login")
@@ -45,37 +45,38 @@ namespace IPR.Client
             return loginCorrect;
         }
 
-        private Tuple<string, string> EncryptLoginData(string username, string password)
+        public void AddPatient(Patient patient)
         {
-            byte[] usernameData = System.Text.Encoding.ASCII.GetBytes(username);
-            usernameData = new System.Security.Cryptography.SHA256Managed().ComputeHash(usernameData);
-            string encryptedUsername = System.Text.Encoding.ASCII.GetString(usernameData);
-
-            byte[] passwordData = System.Text.Encoding.ASCII.GetBytes(password);
-            passwordData = new System.Security.Cryptography.SHA256Managed().ComputeHash(passwordData);
-            string encryptedPassword = System.Text.Encoding.ASCII.GetString(passwordData);
-
-            return new Tuple<string, string>(encryptedUsername, encryptedPassword);
+            string data = JsonConvert.SerializeObject(patient);
+            WriteTextMessage(CreateJsonCommand("add_patient", data));
         }
         
-        public void GetPatientData(string patientName)
+        public Patient GetPatientData(string patientName)
         {
             string data = JsonConvert.SerializeObject(new
             {
                 patientName = patientName,
             });
 
-            WriteTextMessage(createJsonCommand("patient_data", data));
-            decodeJsonCommand(ReadTextMessage());
+            WriteTextMessage(CreateJsonCommand("patient_data", data));
+            string patientData = ReadTextMessage();
+
+            if (patientData != "PatientNotFound")
+            {
+                Patient patient = JsonConvert.DeserializeObject<Patient>(patientData);
+                return patient;
+            }
+            else
+                return null;
         }
 
         public void Disconnect()
         {
-            WriteTextMessage(createJsonCommand("client_disconnect", ""));
+            WriteTextMessage(CreateJsonCommand("client_disconnect", ""));
             client.Close();
         }
 
-        private string createJsonCommand(string command, string data)
+        private string CreateJsonCommand(string command, string data)
         {
             string output = JsonConvert.SerializeObject(new
             {
@@ -84,18 +85,6 @@ namespace IPR.Client
 
             });
             return output;
-        }
-
-        private void decodeJsonCommand(string jsonString)
-        {
-            dynamic receivedData = JsonConvert.DeserializeObject(jsonString);
-            String command = receivedData.command;
-            String data = receivedData.data;
-
-            if (command == "patient_data")
-            {
-                Patient searchedPatient = JsonConvert.DeserializeObject<Patient>(data);
-            }
         }
 
         private static string ReadTextMessage()
@@ -122,6 +111,19 @@ namespace IPR.Client
                 }
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
+
+        private Tuple<string, string> EncryptLoginData(string username, string password)
+        {
+            byte[] usernameData = System.Text.Encoding.ASCII.GetBytes(username);
+            usernameData = new System.Security.Cryptography.SHA256Managed().ComputeHash(usernameData);
+            string encryptedUsername = System.Text.Encoding.ASCII.GetString(usernameData);
+
+            byte[] passwordData = System.Text.Encoding.ASCII.GetBytes(password);
+            passwordData = new System.Security.Cryptography.SHA256Managed().ComputeHash(passwordData);
+            string encryptedPassword = System.Text.Encoding.ASCII.GetString(passwordData);
+
+            return new Tuple<string, string>(encryptedUsername, encryptedPassword);
         }
     }
 }
