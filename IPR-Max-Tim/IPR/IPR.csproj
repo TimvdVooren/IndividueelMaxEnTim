@@ -70,6 +70,12 @@
     <Compile Include="GUI%27s\DoctorLoginForm.Designer.cs">
       <DependentUpon>DoctorLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI%27s\HistoricDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI%27s\HistoricDataForm.Designer.cs">
+      <DependentUpon>HistoricDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI%27s\SpecialistForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI%27s\DoctorLoginForm.resx">
       <DependentUpon>DoctorLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI%27s\HistoricDataForm.resx">
+      <DependentUpon>HistoricDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI%27s\SpecialistForm.resx">
       <DependentUpon>SpecialistForm.cs</DependentUpon>

@@ -35,7 +35,7 @@ namespace IPR.Bicycle
 
         public override void Reset()
         {
-            Outgoing.Enqueue($"RS");
+            Outgoing.Enqueue("RS");
         }
 
         public override void SetDistance(int hectometers)

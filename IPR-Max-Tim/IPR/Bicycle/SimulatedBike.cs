@@ -40,6 +40,7 @@ namespace IPR.Bicycle
         {
 
         }
+
         public void SetSpeed(int speed)
         {
             rpm = speed;

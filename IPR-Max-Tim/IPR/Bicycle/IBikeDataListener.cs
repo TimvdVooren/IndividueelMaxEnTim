@@ -9,6 +9,5 @@ namespace IPR.Bicycle
     interface IBikeDataListener
     {
         void OnBikeDataReceived(BikeDataPackage e);
-
     }
 }

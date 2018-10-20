@@ -36,12 +36,14 @@
             this.SpecialistTitleOfFormLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.ByciclePanel = new System.Windows.Forms.Panel();
+            this.startTest = new System.Windows.Forms.Button();
             this.MenuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuPanel
             // 
             this.MenuPanel.BackColor = System.Drawing.Color.DimGray;
+            this.MenuPanel.Controls.Add(this.startTest);
             this.MenuPanel.Controls.Add(this.RefreshButton);
             this.MenuPanel.Controls.Add(this.AddPatientButton);
             this.MenuPanel.Controls.Add(this.HistoricalDataButton);
@@ -118,9 +120,9 @@
             this.SpecialistTitleOfFormLabel.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpecialistTitleOfFormLabel.Location = new System.Drawing.Point(38, 33);
             this.SpecialistTitleOfFormLabel.Name = "SpecialistTitleOfFormLabel";
-            this.SpecialistTitleOfFormLabel.Size = new System.Drawing.Size(192, 22);
+            this.SpecialistTitleOfFormLabel.Size = new System.Drawing.Size(193, 22);
             this.SpecialistTitleOfFormLabel.TabIndex = 0;
-            this.SpecialistTitleOfFormLabel.Text = "Avans-Ästrand  test";
+            this.SpecialistTitleOfFormLabel.Text = "Avans-Ästrand  Test";
             // 
             // TopPanel
             // 
@@ -138,6 +140,20 @@
             this.ByciclePanel.Name = "ByciclePanel";
             this.ByciclePanel.Size = new System.Drawing.Size(1079, 622);
             this.ByciclePanel.TabIndex = 2;
+            // 
+            // startTest
+            // 
+            this.startTest.BackColor = System.Drawing.Color.Silver;
+            this.startTest.FlatAppearance.BorderSize = 0;
+            this.startTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.startTest.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.startTest.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.startTest.Location = new System.Drawing.Point(0, 367);
+            this.startTest.Name = "startTest";
+            this.startTest.Size = new System.Drawing.Size(272, 38);
+            this.startTest.TabIndex = 5;
+            this.startTest.Text = "Start Test";
+            this.startTest.UseVisualStyleBackColor = false;
             // 
             // SpecialistForm
             // 
@@ -165,5 +181,6 @@
         private System.Windows.Forms.Label SpecialistTitleOfFormLabel;
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Panel ByciclePanel;
+        private System.Windows.Forms.Button startTest;
     }
 }

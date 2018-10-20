@@ -29,7 +29,7 @@ namespace IPR.GUI_s
 
         private void HistoricalDataButton_Click(object sender, EventArgs e)
         {
-            //GUI VOOR INPUT PATIENTNAME
+            new HistoricDataForm(DoctorClient).Show();
         }
     }
 }

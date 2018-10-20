@@ -22,7 +22,6 @@ namespace IPR.SerialCommunication
         IX7DataListener listener;
         PhysicalBike bike;
 
-
         public SerialManager(IX7DataListener listener, PhysicalBike b, String port, int speed, int id)
         {
             this.port = port;

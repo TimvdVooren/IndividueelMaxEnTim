@@ -100,7 +100,7 @@ namespace IPR.Client
             streamWriter.Flush();
         }
 
-        public static string GetLocalIPAddress()
+        private static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)

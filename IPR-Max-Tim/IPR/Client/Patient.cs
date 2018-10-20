@@ -11,14 +11,21 @@ namespace IPR.Client
         public string Name { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
-        public int Gewicht { get; set; }
+        public int Weight { get; set; }
 
-        public Patient(string Name, int Age, string Gender, int Gewicht)
+        public Patient(string Name, int Age, string Gender, int Weight)
         {
             this.Name = Name;
             this.Age = Age;
             this.Gender = Gender;
-            this.Gewicht = Gewicht;
+            this.Weight = Weight;
+        }
+
+        public override string ToString()
+        {
+            string patientString = $"{Name}, {Age} years old, {Gender}, {Weight} Kg\r\n\r\n";
+            //patientString = patientString + AstrandTest.ToString();
+            return patientString;
         }
     }
 }

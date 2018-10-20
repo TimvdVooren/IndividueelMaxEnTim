@@ -38,27 +38,7 @@ namespace Server
             serverClient.HandleClientThread();
             Listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);
         }
-
-        private void PatientLogin(string receivedData)
-        {
-            string username = JsonConvert.DeserializeObject<string>(receivedData);
-            string patientName = username;
-
-            string fileName = patientName + ".txt";
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), fileName);
-
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("Er is nog geen dataBestand voor de patient, deze wordt aangemaakt");
-                FileStream myFile = File.Create(path);
-                myFile.Close();
-            }
-            else if (File.Exists(path))
-            {
-                Console.WriteLine("Er is al een dataBestand voor deze patient");
-            }
-        }
-
+        
         public static void AddDoctorAccount(string Username, string Password)
         {
             if (DoctorAccounts == null)
@@ -82,13 +62,13 @@ namespace Server
             string encryptedData = System.Text.Encoding.ASCII.GetString(data);
 
             if (DoctorAccounts == null)
-            {
                 DoctorAccounts = new SortedList<string, string>();
-            }
+
             if (!DoctorAccounts.ContainsKey(encryptedData))
-            {
                 DoctorAccounts.Add(encryptedData, encryptedData);
-            }
+
+            Patient testPatient = new Patient("test", 18, "male", 90);
+            WritePatientToFile(testPatient);
 
             string JsonAccounts = JsonConvert.SerializeObject(DoctorAccounts);
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "DoctorData.txt");
