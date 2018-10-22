@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +77,12 @@
     <Compile Include="GUI%27s\HistoricDataForm.Designer.cs">
       <DependentUpon>HistoricDataForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI%27s\PatientCustomUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI%27s\PatientCustomUserControl.Designer.cs">
+      <DependentUpon>PatientCustomUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI%27s\SpecialistForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI%27s\HistoricDataForm.resx">
       <DependentUpon>HistoricDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI%27s\PatientCustomUserControl.resx">
+      <DependentUpon>PatientCustomUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI%27s\SpecialistForm.resx">
       <DependentUpon>SpecialistForm.cs</DependentUpon>
