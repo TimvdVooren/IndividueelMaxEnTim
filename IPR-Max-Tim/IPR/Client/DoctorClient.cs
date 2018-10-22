@@ -14,9 +14,19 @@ namespace IPR.Client
     {
         private static TcpClient client;
         
-        public DoctorClient()
+        public DoctorClient(string serverIpAddress)
         {
-            client = new TcpClient(GetLocalIPAddress(), 6666);
+            client = new TcpClient(serverIpAddress, 6666);
+
+            string clientType = JsonConvert.SerializeObject(new
+            {
+                data = new
+                {
+                    type = "doctor",
+                }
+            });
+
+            WriteTextMessage(clientType);
         }
 
         public bool GuiDataToServer(string command, string username, string password)
@@ -98,19 +108,6 @@ namespace IPR.Client
             StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.UTF8);
             streamWriter.WriteLine(message);
             streamWriter.Flush();
-        }
-
-        private static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
         private Tuple<string, string> EncryptLoginData(string username, string password)

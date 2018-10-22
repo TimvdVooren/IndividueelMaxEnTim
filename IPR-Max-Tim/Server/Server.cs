@@ -35,7 +35,8 @@ namespace Server
         {
             TcpClient client = Listener.EndAcceptTcpClient(ar);
             ServerClient serverClient = new ServerClient(client);
-            serverClient.HandleClientThread();
+            Thread clientThread = new Thread(() => serverClient.HandleClientThread());
+            clientThread.Start();
             Listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);
         }
         

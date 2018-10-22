@@ -20,12 +20,36 @@ namespace Server
 
         public void HandleClientThread()
         {
-            bool done = false;
-            while (!done && Client.Connected)
+            string clientSort = ReadTextMessage();
+            dynamic receivedData = JsonConvert.DeserializeObject(clientSort);
+            string type = receivedData.data.type;
+
+            if (type == "patient")
+            {
+                Console.WriteLine("Patient has connected");
+                HandlePatient();
+            }
+            else if (type == "doctor")
+            {
+                Console.WriteLine("Doctor has connected");
+                HandleDoctor();
+            }
+        }
+
+        private void HandlePatient()
+        {
+            while (true)
+            {
+
+            }
+        }
+
+        private void HandleDoctor()
+        {
+            while (true)
             {
                 HandleData(ReadTextMessage());
             }
-            Client.Close();
         }
 
         private void HandleData(string message)

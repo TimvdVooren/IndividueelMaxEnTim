@@ -16,16 +16,16 @@ namespace IPR.GUI_s
     {
         private DoctorClient DoctorClient;
 
-        public DoctorLoginForm()
+        public DoctorLoginForm(string serverIpAddress)
         {
             InitializeComponent();
-            Thread clientThread = new Thread(StartClient);
+            Thread clientThread = new Thread(() => StartClient(serverIpAddress));
             clientThread.Start();
         }
 
-        private void StartClient()
+        private void StartClient(string serverIpAddress)
         {
-            DoctorClient = new DoctorClient();
+            DoctorClient = new DoctorClient(serverIpAddress);
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
