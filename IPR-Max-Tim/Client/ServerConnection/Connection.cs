@@ -26,7 +26,7 @@ namespace Client.ServerConnection
             SerialDataHandler.getInstance().AddSubscriberToHandler(this);
             ConnectToServer(ip, port);
 
-            latestBikeData = new BikeDataPackage("1970-01-01-00:00:00", "0", "0", "0", "0");
+            latestBikeData = new BikeDataPackage("1970-01-01-00:00:00", "0", "0", "0", "0", "0");
             dataRequestTimer = new System.Timers.Timer(100);
             dataRequestTimer.Elapsed += OnTimerTick;
             dataRequestTimer.AutoReset = true;
@@ -109,7 +109,7 @@ namespace Client.ServerConnection
 
         private void StartCourse()
         {
-            SerialDataHandler.getInstance().ResetWithVariables(50, 0, 0, 0);
+            SerialDataHandler.getInstance().Reset();
             dataRequested = true;
         }
 
@@ -120,8 +120,7 @@ namespace Client.ServerConnection
 
         private void SetPower(int increment)
         {
-            int latestbikepower = ((int.Parse(latestBikeData.power) - 25) / 4);
-            SerialDataHandler.getInstance().SetPower(latestbikepower + increment);
+            SerialDataHandler.getInstance().SetPower((int.Parse(latestBikeData.power) + 4*increment));
         }
 
         private void ParseData(string receivedData)
@@ -154,20 +153,20 @@ namespace Client.ServerConnection
             //MISSCHIEN MOET DIT AAN DE DOKTERKANT GEBEUREN
             string time = package.time;
             string[] timeComponents = time.Split(':');
-            
+
             if (int.Parse(timeComponents[0]) < 2)
             {
                 SerialDataHandler.getInstance().SetPower(80);
                 package.power = "80";
             }
             //else if (int.Parse(timeComponents[0]) < 6)
-                //correctionPower = int.Parse(package.power);
+            //correctionPower = int.Parse(package.power);
             else if (int.Parse(timeComponents[0]) >= 6 && int.Parse(timeComponents[0]) < 7)
             {
                 SerialDataHandler.getInstance().SetPower(40);
                 package.power = "40";
             }
-            else if(int.Parse(timeComponents[0]) >= 7)
+            else if (int.Parse(timeComponents[0]) >= 7)
             {
                 SerialDataHandler.getInstance().SetPower(25);
                 package.power = "25";

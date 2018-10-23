@@ -33,7 +33,8 @@ namespace Client.ServerConnection
                     rpm = package.rpm,
                     distance = package.distance,
                     energy = package.energy,
-                    power = package.power
+                    power = package.power,
+                    heartrate = package.heartrate
                 }
             });
         }

@@ -9,7 +9,7 @@ namespace Client.Bicycle
         private int rpm;
         private int distance;
         private int energy;
-        private int power;
+        public int power { get; set; }
         private DateTime time;
         private string id;
 
@@ -44,9 +44,9 @@ namespace Client.Bicycle
             GetVariables();
         }
 
-        public override void SetPower(int speed)
+        public override void SetPower(int power)
         {
-            this.power = (int)Math.Floor((speed * 4d) + 25d);
+            this.power = power;
         }
 
         public override void SetDistance(int hectometers)
@@ -107,7 +107,5 @@ namespace Client.Bicycle
         {
             listener.OnDataReceived($"0|{this.rpm}|{this.energy}|0|{this.power}|{this.distance}|{this.time.Minute}:{this.time.Second}|0");
         }
-
-
     }
 }

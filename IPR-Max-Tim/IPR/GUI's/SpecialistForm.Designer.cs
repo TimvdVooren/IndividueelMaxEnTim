@@ -37,13 +37,14 @@
             this.SpecialistTitleOfFormLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.ByciclePanel = new System.Windows.Forms.Panel();
+            this.powerDown = new System.Windows.Forms.Button();
+            this.powerUp = new System.Windows.Forms.Button();
             this.energyLabel = new System.Windows.Forms.Label();
             this.distanceLabel = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
             this.rpmLabel = new System.Windows.Forms.Label();
             this.powerLabel = new System.Windows.Forms.Label();
-            this.powerUp = new System.Windows.Forms.Button();
-            this.powerDown = new System.Windows.Forms.Button();
+            this.heartrateLabel = new System.Windows.Forms.Label();
             this.MenuPanel.SuspendLayout();
             this.ByciclePanel.SuspendLayout();
             this.SuspendLayout();
@@ -60,8 +61,9 @@
             this.MenuPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuPanel.ForeColor = System.Drawing.SystemColors.Control;
             this.MenuPanel.Location = new System.Drawing.Point(0, 0);
+            this.MenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MenuPanel.Name = "MenuPanel";
-            this.MenuPanel.Size = new System.Drawing.Size(272, 641);
+            this.MenuPanel.Size = new System.Drawing.Size(204, 521);
             this.MenuPanel.TabIndex = 0;
             // 
             // startTest
@@ -71,9 +73,10 @@
             this.startTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startTest.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startTest.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.startTest.Location = new System.Drawing.Point(0, 367);
+            this.startTest.Location = new System.Drawing.Point(0, 298);
+            this.startTest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.startTest.Name = "startTest";
-            this.startTest.Size = new System.Drawing.Size(272, 38);
+            this.startTest.Size = new System.Drawing.Size(204, 31);
             this.startTest.TabIndex = 5;
             this.startTest.Text = "Start Test";
             this.startTest.UseVisualStyleBackColor = false;
@@ -86,9 +89,10 @@
             this.RefreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RefreshButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RefreshButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.RefreshButton.Location = new System.Drawing.Point(0, 269);
+            this.RefreshButton.Location = new System.Drawing.Point(0, 219);
+            this.RefreshButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Size = new System.Drawing.Size(272, 38);
+            this.RefreshButton.Size = new System.Drawing.Size(204, 31);
             this.RefreshButton.TabIndex = 4;
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = false;
@@ -100,9 +104,10 @@
             this.AddPatientButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddPatientButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddPatientButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.AddPatientButton.Location = new System.Drawing.Point(0, 221);
+            this.AddPatientButton.Location = new System.Drawing.Point(0, 180);
+            this.AddPatientButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AddPatientButton.Name = "AddPatientButton";
-            this.AddPatientButton.Size = new System.Drawing.Size(272, 42);
+            this.AddPatientButton.Size = new System.Drawing.Size(204, 34);
             this.AddPatientButton.TabIndex = 3;
             this.AddPatientButton.Text = "Add Patient";
             this.AddPatientButton.UseVisualStyleBackColor = false;
@@ -115,9 +120,10 @@
             this.HistoricalDataButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HistoricalDataButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HistoricalDataButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.HistoricalDataButton.Location = new System.Drawing.Point(0, 176);
+            this.HistoricalDataButton.Location = new System.Drawing.Point(0, 143);
+            this.HistoricalDataButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.HistoricalDataButton.Name = "HistoricalDataButton";
-            this.HistoricalDataButton.Size = new System.Drawing.Size(272, 39);
+            this.HistoricalDataButton.Size = new System.Drawing.Size(204, 32);
             this.HistoricalDataButton.TabIndex = 2;
             this.HistoricalDataButton.Text = "Historical Data";
             this.HistoricalDataButton.UseVisualStyleBackColor = false;
@@ -130,9 +136,10 @@
             this.PatientsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PatientsButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PatientsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.PatientsButton.Location = new System.Drawing.Point(0, 134);
+            this.PatientsButton.Location = new System.Drawing.Point(0, 109);
+            this.PatientsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PatientsButton.Name = "PatientsButton";
-            this.PatientsButton.Size = new System.Drawing.Size(272, 36);
+            this.PatientsButton.Size = new System.Drawing.Size(204, 29);
             this.PatientsButton.TabIndex = 1;
             this.PatientsButton.Text = "Patients";
             this.PatientsButton.UseVisualStyleBackColor = false;
@@ -141,9 +148,10 @@
             // 
             this.SpecialistTitleOfFormLabel.AutoSize = true;
             this.SpecialistTitleOfFormLabel.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpecialistTitleOfFormLabel.Location = new System.Drawing.Point(38, 33);
+            this.SpecialistTitleOfFormLabel.Location = new System.Drawing.Point(28, 27);
+            this.SpecialistTitleOfFormLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SpecialistTitleOfFormLabel.Name = "SpecialistTitleOfFormLabel";
-            this.SpecialistTitleOfFormLabel.Size = new System.Drawing.Size(193, 22);
+            this.SpecialistTitleOfFormLabel.Size = new System.Drawing.Size(150, 20);
             this.SpecialistTitleOfFormLabel.TabIndex = 0;
             this.SpecialistTitleOfFormLabel.Text = "Avans-Ästrand  Test";
             // 
@@ -151,13 +159,15 @@
             // 
             this.TopPanel.BackColor = System.Drawing.Color.Firebrick;
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TopPanel.Location = new System.Drawing.Point(272, 0);
+            this.TopPanel.Location = new System.Drawing.Point(204, 0);
+            this.TopPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(1079, 19);
+            this.TopPanel.Size = new System.Drawing.Size(809, 15);
             this.TopPanel.TabIndex = 1;
             // 
             // ByciclePanel
             // 
+            this.ByciclePanel.Controls.Add(this.heartrateLabel);
             this.ByciclePanel.Controls.Add(this.powerDown);
             this.ByciclePanel.Controls.Add(this.powerUp);
             this.ByciclePanel.Controls.Add(this.energyLabel);
@@ -166,75 +176,11 @@
             this.ByciclePanel.Controls.Add(this.rpmLabel);
             this.ByciclePanel.Controls.Add(this.powerLabel);
             this.ByciclePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ByciclePanel.Location = new System.Drawing.Point(272, 19);
+            this.ByciclePanel.Location = new System.Drawing.Point(204, 15);
+            this.ByciclePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ByciclePanel.Name = "ByciclePanel";
-            this.ByciclePanel.Size = new System.Drawing.Size(1079, 622);
+            this.ByciclePanel.Size = new System.Drawing.Size(809, 506);
             this.ByciclePanel.TabIndex = 2;
-            // 
-            // energyLabel
-            // 
-            this.energyLabel.AutoSize = true;
-            this.energyLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.energyLabel.Location = new System.Drawing.Point(65, 234);
-            this.energyLabel.Name = "energyLabel";
-            this.energyLabel.Size = new System.Drawing.Size(74, 21);
-            this.energyLabel.TabIndex = 4;
-            this.energyLabel.Text = "Energy: ";
-            // 
-            // distanceLabel
-            // 
-            this.distanceLabel.AutoSize = true;
-            this.distanceLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.distanceLabel.Location = new System.Drawing.Point(65, 202);
-            this.distanceLabel.Name = "distanceLabel";
-            this.distanceLabel.Size = new System.Drawing.Size(94, 21);
-            this.distanceLabel.TabIndex = 3;
-            this.distanceLabel.Text = "Distance: ";
-            // 
-            // timeLabel
-            // 
-            this.timeLabel.AutoSize = true;
-            this.timeLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.timeLabel.Location = new System.Drawing.Point(64, 166);
-            this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(57, 21);
-            this.timeLabel.TabIndex = 2;
-            this.timeLabel.Text = "Time: ";
-            // 
-            // rpmLabel
-            // 
-            this.rpmLabel.AutoSize = true;
-            this.rpmLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.rpmLabel.Location = new System.Drawing.Point(64, 130);
-            this.rpmLabel.Name = "rpmLabel";
-            this.rpmLabel.Size = new System.Drawing.Size(57, 21);
-            this.rpmLabel.TabIndex = 1;
-            this.rpmLabel.Text = "Rpm: ";
-            // 
-            // powerLabel
-            // 
-            this.powerLabel.AutoSize = true;
-            this.powerLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.powerLabel.Location = new System.Drawing.Point(64, 96);
-            this.powerLabel.Name = "powerLabel";
-            this.powerLabel.Size = new System.Drawing.Size(71, 21);
-            this.powerLabel.TabIndex = 0;
-            this.powerLabel.Text = "Power: ";
-            // 
-            // powerUp
-            // 
-            this.powerUp.BackColor = System.Drawing.Color.Silver;
-            this.powerUp.FlatAppearance.BorderSize = 0;
-            this.powerUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.powerUp.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.powerUp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.powerUp.Location = new System.Drawing.Point(376, 87);
-            this.powerUp.Name = "powerUp";
-            this.powerUp.Size = new System.Drawing.Size(148, 38);
-            this.powerUp.TabIndex = 6;
-            this.powerUp.Text = "Power up";
-            this.powerUp.UseVisualStyleBackColor = false;
-            this.powerUp.Click += new System.EventHandler(this.powerUp_Click);
             // 
             // powerDown
             // 
@@ -243,22 +189,106 @@
             this.powerDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.powerDown.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.powerDown.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.powerDown.Location = new System.Drawing.Point(569, 87);
+            this.powerDown.Location = new System.Drawing.Point(427, 71);
+            this.powerDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.powerDown.Name = "powerDown";
-            this.powerDown.Size = new System.Drawing.Size(148, 38);
+            this.powerDown.Size = new System.Drawing.Size(111, 31);
             this.powerDown.TabIndex = 7;
             this.powerDown.Text = "Power down";
             this.powerDown.UseVisualStyleBackColor = false;
             this.powerDown.Click += new System.EventHandler(this.powerDown_Click);
             // 
+            // powerUp
+            // 
+            this.powerUp.BackColor = System.Drawing.Color.Silver;
+            this.powerUp.FlatAppearance.BorderSize = 0;
+            this.powerUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.powerUp.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.powerUp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.powerUp.Location = new System.Drawing.Point(282, 71);
+            this.powerUp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.powerUp.Name = "powerUp";
+            this.powerUp.Size = new System.Drawing.Size(111, 31);
+            this.powerUp.TabIndex = 6;
+            this.powerUp.Text = "Power up";
+            this.powerUp.UseVisualStyleBackColor = false;
+            this.powerUp.Click += new System.EventHandler(this.powerUp_Click);
+            // 
+            // energyLabel
+            // 
+            this.energyLabel.AutoSize = true;
+            this.energyLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.energyLabel.Location = new System.Drawing.Point(49, 190);
+            this.energyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.energyLabel.Name = "energyLabel";
+            this.energyLabel.Size = new System.Drawing.Size(64, 19);
+            this.energyLabel.TabIndex = 4;
+            this.energyLabel.Text = "Energy: ";
+            // 
+            // distanceLabel
+            // 
+            this.distanceLabel.AutoSize = true;
+            this.distanceLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.distanceLabel.Location = new System.Drawing.Point(49, 164);
+            this.distanceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.distanceLabel.Name = "distanceLabel";
+            this.distanceLabel.Size = new System.Drawing.Size(77, 19);
+            this.distanceLabel.TabIndex = 3;
+            this.distanceLabel.Text = "Distance: ";
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.timeLabel.Location = new System.Drawing.Point(48, 135);
+            this.timeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(47, 19);
+            this.timeLabel.TabIndex = 2;
+            this.timeLabel.Text = "Time: ";
+            // 
+            // rpmLabel
+            // 
+            this.rpmLabel.AutoSize = true;
+            this.rpmLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.rpmLabel.Location = new System.Drawing.Point(48, 106);
+            this.rpmLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.rpmLabel.Name = "rpmLabel";
+            this.rpmLabel.Size = new System.Drawing.Size(49, 19);
+            this.rpmLabel.TabIndex = 1;
+            this.rpmLabel.Text = "Rpm: ";
+            // 
+            // powerLabel
+            // 
+            this.powerLabel.AutoSize = true;
+            this.powerLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.powerLabel.Location = new System.Drawing.Point(48, 78);
+            this.powerLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.powerLabel.Name = "powerLabel";
+            this.powerLabel.Size = new System.Drawing.Size(59, 19);
+            this.powerLabel.TabIndex = 0;
+            this.powerLabel.Text = "Power: ";
+            // 
+            // heartrateLabel
+            // 
+            this.heartrateLabel.AutoSize = true;
+            this.heartrateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.heartrateLabel.Location = new System.Drawing.Point(49, 216);
+            this.heartrateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.heartrateLabel.Name = "heartrateLabel";
+            this.heartrateLabel.Size = new System.Drawing.Size(83, 19);
+            this.heartrateLabel.TabIndex = 8;
+            this.heartrateLabel.Text = "Heartrate: ";
+            // 
             // SpecialistForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1351, 641);
+            this.ClientSize = new System.Drawing.Size(1013, 521);
             this.Controls.Add(this.ByciclePanel);
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.MenuPanel);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SpecialistForm";
             this.Text = "SpecialistForm";
             this.MenuPanel.ResumeLayout(false);
@@ -287,5 +317,6 @@
         private System.Windows.Forms.Label rpmLabel;
         private System.Windows.Forms.Button powerDown;
         private System.Windows.Forms.Button powerUp;
+        private System.Windows.Forms.Label heartrateLabel;
     }
 }

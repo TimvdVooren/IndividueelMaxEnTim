@@ -5,7 +5,7 @@ namespace Client.Bicycle
     public abstract class Bike
     {
 
-        public abstract void SetPower(int speed);           // PW+x, x tussen 25 en 400 (VS+x?)
+        public abstract void SetPower(int power);           // PW+x, x tussen 25 en 400 (VS+x?)
         public abstract void SetDistance(int hectometers);  // PD+x
         public abstract void SetEnergy(int kiloJoules);     // PE+x
         public abstract void SetTime(int seconds);          // PT+x

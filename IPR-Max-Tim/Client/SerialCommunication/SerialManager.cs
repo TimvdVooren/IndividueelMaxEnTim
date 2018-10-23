@@ -67,7 +67,6 @@ namespace Client.SerialCommunication
                 Thread.Sleep(100); // delays the checking process to save system resources
                 if (bike.Outgoing.Count != 0)
                 {
-
                     try
                     {
                         for (int i = 0; i < bike.Outgoing.Count; i++)
@@ -106,6 +105,7 @@ namespace Client.SerialCommunication
                     {
                         if (message != "")
                         {
+                            //Console.WriteLine($"Bike sent {message}");
                             listener.OnDataReceived(message);
                             message = "";
                         }

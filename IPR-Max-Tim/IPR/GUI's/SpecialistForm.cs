@@ -44,13 +44,15 @@ namespace IPR.GUI_s
             string time = receivedData.data.time;
             string[] timeComponents = time.Split(':');
 
-            if (int.Parse(timeComponents[1]) < 10)
-                time = timeComponents[0] + ":0" + timeComponents[1];
-            if (int.Parse(timeComponents[0]) < 2)
+            int i = 0;
+            if (timeComponents.Length == 3)
+                i = 1;
+            
+            if (int.Parse(timeComponents[i]) < 2)
                 time = time + " WARMING UP";
-            else if (int.Parse(timeComponents[0]) < 6)
+            else if (int.Parse(timeComponents[i]) < 6)
                 time = time + " RUNNING TEST";
-            else if (int.Parse(timeComponents[0]) < 7)
+            else if (int.Parse(timeComponents[i]) < 7)
                 time = time + " COOLING DOWN";
             else
                 time = time + " TEST FINISHED";
@@ -58,6 +60,7 @@ namespace IPR.GUI_s
             timeLabel.Text = "Time: " + time;
             distanceLabel.Text = "Distance: " + receivedData.data.distance;
             energyLabel.Text = "Energy: " + receivedData.data.energy;
+            heartrateLabel.Text = "Heartrate: " + receivedData.data.heartrate;
         }
 
         private void AddPatientButton_Click(object sender, EventArgs e)

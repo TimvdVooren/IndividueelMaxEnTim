@@ -46,7 +46,7 @@ namespace Client.DataHandling
             switch (mode)
             {
                 case 0:
-                    bike = new PhysicalBike("COM8", this);
+                    bike = new PhysicalBike("COM5", this);
                     break;
                 case 1:
                     bike = new SimulatedBike(this, 0);
@@ -114,15 +114,15 @@ namespace Client.DataHandling
         /// Sets the cycling difficulty (low value == low resistance) (high value == high resistance)
         /// </summary>
         /// <param name="percentage">Value between 0-100 in %</param>
-        public void SetPower(int percentage)
+        public void SetPower(int power)
         {
-            if (!(percentage < 0 && percentage > 100))
+            if (power >= 25 && power <= 400)
             {
-                bike.SetPower(percentage);
+                bike.SetPower(power);
             }
             else
             {
-                bike.SetPower(percentage * 0);
+                bike.SetPower(power * 0);
             }
 
         }
@@ -156,13 +156,14 @@ namespace Client.DataHandling
             try
             {
                 string[] Variables = message.Split(Convert.ToChar("|"));
+                string HeartRate = Variables[0];
                 string Rpm = Variables[1];
                 string Energy = Variables[2];
                 string Distance = Variables[5];
                 string Power = Variables[4];
                 string Time = Variables[6];
 
-                BikeDataPackage pack = new BikeDataPackage(Time, Power, Rpm, Distance, Energy);
+                BikeDataPackage pack = new BikeDataPackage(Time, Power, Rpm, Distance, Energy, HeartRate);
                 //TODO do something with the received package
                 foreach (IBikeDataListener l in subscribers)
                 {

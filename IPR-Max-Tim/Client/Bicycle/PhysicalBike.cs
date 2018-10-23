@@ -8,15 +8,15 @@ namespace Client.Bicycle
     class PhysicalBike : Bike
     {
         private SerialManager Manager;
-        private Thread worker;
+        private Thread Worker;
         public Queue<String> Outgoing;
 
         public PhysicalBike(String COMPort, IX7DataListener listener)
         {
             Outgoing = new Queue<string>();
             Manager = new SerialManager(listener, this, COMPort, 9600, 0);
-            worker = new Thread(new ThreadStart(Manager.Start));
-            worker.Start();
+            Worker = new Thread(new ThreadStart(Manager.Start));
+            Worker.Start();
         }
 
         public override string GetID()
@@ -44,9 +44,9 @@ namespace Client.Bicycle
             Outgoing.Enqueue($"PE{kiloJoules}");
         }
 
-        public override void SetPower(int speed)
+        public override void SetPower(int power)
         {
-            Outgoing.Enqueue($"PW{speed}");
+            Outgoing.Enqueue($"PW{power}");
         }
 
         public override void SetTime(int seconds)
