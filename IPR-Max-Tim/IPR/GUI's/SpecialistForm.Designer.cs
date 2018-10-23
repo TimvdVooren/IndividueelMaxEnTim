@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.startTest = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
@@ -37,6 +42,9 @@
             this.SpecialistTitleOfFormLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.ByciclePanel = new System.Windows.Forms.Panel();
+            this.RPMWChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.powerDown = new System.Windows.Forms.Button();
+            this.powerUp = new System.Windows.Forms.Button();
             this.powerDown = new System.Windows.Forms.Button();
             this.powerUp = new System.Windows.Forms.Button();
             this.energyLabel = new System.Windows.Forms.Label();
@@ -44,9 +52,11 @@
             this.timeLabel = new System.Windows.Forms.Label();
             this.rpmLabel = new System.Windows.Forms.Label();
             this.powerLabel = new System.Windows.Forms.Label();
+            this.RPMWChartTimer = new System.Windows.Forms.Timer(this.components);
             this.heartrateLabel = new System.Windows.Forms.Label();
             this.MenuPanel.SuspendLayout();
             this.ByciclePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RPMWChart)).BeginInit();
             this.SuspendLayout();
             // 
             // MenuPanel
@@ -167,6 +177,7 @@
             // 
             // ByciclePanel
             // 
+            this.ByciclePanel.Controls.Add(this.RPMWChart);
             this.ByciclePanel.Controls.Add(this.heartrateLabel);
             this.ByciclePanel.Controls.Add(this.powerDown);
             this.ByciclePanel.Controls.Add(this.powerUp);
@@ -181,6 +192,56 @@
             this.ByciclePanel.Name = "ByciclePanel";
             this.ByciclePanel.Size = new System.Drawing.Size(809, 506);
             this.ByciclePanel.TabIndex = 2;
+            // 
+            // RPMWChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.RPMWChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.RPMWChart.Legends.Add(legend1);
+            this.RPMWChart.Location = new System.Drawing.Point(609, 157);
+            this.RPMWChart.Name = "RPMWChart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            this.RPMWChart.Series.Add(series1);
+            this.RPMWChart.Series.Add(series2);
+            this.RPMWChart.Size = new System.Drawing.Size(467, 206);
+            this.RPMWChart.TabIndex = 8;
+            this.RPMWChart.Text = "chart1";
+            // 
+            // powerDown
+            // 
+            this.powerDown.BackColor = System.Drawing.Color.Silver;
+            this.powerDown.FlatAppearance.BorderSize = 0;
+            this.powerDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.powerDown.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.powerDown.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.powerDown.Location = new System.Drawing.Point(569, 87);
+            this.powerDown.Name = "powerDown";
+            this.powerDown.Size = new System.Drawing.Size(148, 38);
+            this.powerDown.TabIndex = 7;
+            this.powerDown.Text = "Power down";
+            this.powerDown.UseVisualStyleBackColor = false;
+            this.powerDown.Click += new System.EventHandler(this.powerDown_Click);
+            // 
+            // powerUp
+            // 
+            this.powerUp.BackColor = System.Drawing.Color.Silver;
+            this.powerUp.FlatAppearance.BorderSize = 0;
+            this.powerUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.powerUp.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.powerUp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.powerUp.Location = new System.Drawing.Point(376, 87);
+            this.powerUp.Name = "powerUp";
+            this.powerUp.Size = new System.Drawing.Size(148, 38);
+            this.powerUp.TabIndex = 6;
+            this.powerUp.Text = "Power up";
+            this.powerUp.UseVisualStyleBackColor = false;
+            this.powerUp.Click += new System.EventHandler(this.powerUp_Click);
             // 
             // powerDown
             // 
@@ -269,8 +330,11 @@
             this.powerLabel.TabIndex = 0;
             this.powerLabel.Text = "Power: ";
             // 
+            // RPMWChartTimer
             // heartrateLabel
             // 
+            this.RPMWChartTimer.Interval = 500;
+            this.RPMWChartTimer.Tick += new System.EventHandler(this.RPMWChartTimer_Tick);
             this.heartrateLabel.AutoSize = true;
             this.heartrateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
             this.heartrateLabel.Location = new System.Drawing.Point(49, 216);
@@ -295,6 +359,7 @@
             this.MenuPanel.PerformLayout();
             this.ByciclePanel.ResumeLayout(false);
             this.ByciclePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RPMWChart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -317,6 +382,8 @@
         private System.Windows.Forms.Label rpmLabel;
         private System.Windows.Forms.Button powerDown;
         private System.Windows.Forms.Button powerUp;
+        private System.Windows.Forms.DataVisualization.Charting.Chart RPMWChart;
+        private System.Windows.Forms.Timer RPMWChartTimer;
         private System.Windows.Forms.Label heartrateLabel;
     }
 }

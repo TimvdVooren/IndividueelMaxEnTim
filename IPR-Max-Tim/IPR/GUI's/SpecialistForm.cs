@@ -15,11 +15,19 @@ namespace IPR.GUI_s
     partial class SpecialistForm : Form
     {
         private DoctorClient DoctorClient;
+        private double power;
+        private double speed;
 
         public SpecialistForm(DoctorClient DoctorClient)
         {
             InitializeComponent();
+            this.RPMWChart.ChartAreas[0].AxisX.LabelStyle.Format = "";
+            this.RPMWChart.Series[0].Name = "Power";
+            this.RPMWChart.Series[1].Name = "Speed";
+            //RPMWChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             this.DoctorClient = DoctorClient;
+            RPMWChartTimer.Start();
+
         }
 
         public void SetBikeData(string data)
@@ -31,6 +39,7 @@ namespace IPR.GUI_s
         {
             dynamic receivedData = JsonConvert.DeserializeObject(data);
             powerLabel.Text = "Power: " + receivedData.data.power;
+            power = receivedData.data.power;
 
             string rpm = receivedData.data.rpm;
 
@@ -87,6 +96,17 @@ namespace IPR.GUI_s
         private void powerDown_Click(object sender, EventArgs e)
         {
             DoctorClient.ChangePower(-1);
+        }
+
+        int counter = 0;
+        
+        private void RPMWChartTimer_Tick(object sender, EventArgs e)
+        {
+            power = 50;
+            speed = 50;
+            RPMWChart.Series[0].Points.AddXY(counter,power);
+            RPMWChart.Series[1].Points.AddXY(counter,speed);
+            counter++;
         }
     }
 }
