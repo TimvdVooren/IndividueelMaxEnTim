@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Client.SerialCommunication;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using Client;
-using Client.SerialCommunication;
 
 namespace Client.Bicycle
 {
@@ -66,6 +62,16 @@ namespace Client.Bicycle
         protected override void StartEdit()
         {
             Outgoing.Enqueue($"CD");
+        }
+
+        public override void SetCountdownMode()
+        {
+            Outgoing.Enqueue("CD");
+        }
+
+        public override void SetCountupMode()
+        {
+            Outgoing.Enqueue("CM");
         }
     }
 }

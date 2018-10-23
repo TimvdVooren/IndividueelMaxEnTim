@@ -167,7 +167,6 @@ namespace Client.DataHandling
                 foreach (IBikeDataListener l in subscribers)
                 {
                     l.OnBikeDataReceived(pack);
-
                 }
                 //Listener.OnMessageReceived(new X7Data(Rpm, Power, Distance, Time, Energy));
             }

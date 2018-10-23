@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IPR.GUI_s;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IPR.Client
@@ -13,7 +15,8 @@ namespace IPR.Client
     class DoctorClient
     {
         private static TcpClient client;
-        
+        public SpecialistForm DocGUI { get; set; }
+
         public DoctorClient(string serverIpAddress)
         {
             client = new TcpClient(serverIpAddress, 6666);
@@ -55,6 +58,37 @@ namespace IPR.Client
             return loginCorrect;
         }
 
+        public void StartCourse()
+        {
+            //DIT IS HARDCODED PATIENTID
+            string data = JsonConvert.SerializeObject(new
+            {
+                patientID = "patient_0",
+            });
+            WriteTextMessage(CreateJsonCommand("course_start", data));
+            Thread patientDataThread = new Thread(ReceivePatientData);
+            patientDataThread.Start();
+        }
+
+        public void ChangePower(int increment)
+        {
+            //DIT IS HARDCODED PATIENTID
+            string data = JsonConvert.SerializeObject(new
+            {
+                patientID = "patient_0",
+                increment = increment,
+            });
+            WriteTextMessage(CreateJsonCommand("change_power", data));
+        }
+
+        private void ReceivePatientData()
+        {
+            while (true)
+            {
+                string receivedMessage = ReadTextMessage();
+            }
+        }
+
         public void AddPatient(Patient patient)
         {
             string data = JsonConvert.SerializeObject(patient);
@@ -86,6 +120,11 @@ namespace IPR.Client
             client.Close();
         }
 
+        private void HandleBikeData(string data)
+        {
+            DocGUI.SetBikeData(data);
+        }
+
         private string CreateJsonCommand(string command, string data)
         {
             string output = JsonConvert.SerializeObject(new
@@ -97,13 +136,21 @@ namespace IPR.Client
             return output;
         }
 
-        private static string ReadTextMessage()
+        private string ReadTextMessage()
         {
             StreamReader streamReader = new StreamReader(client.GetStream(), Encoding.UTF8);
-            return streamReader.ReadLine();
+
+            string readMessage = streamReader.ReadLine();
+
+            if (readMessage.Contains("bike_data"))
+            {
+                HandleBikeData(readMessage);
+            }
+
+            return readMessage;
         }
 
-        public static void WriteTextMessage(string message)
+        public void WriteTextMessage(string message)
         {
             StreamWriter streamWriter = new StreamWriter(client.GetStream(), Encoding.UTF8);
             streamWriter.WriteLine(message);

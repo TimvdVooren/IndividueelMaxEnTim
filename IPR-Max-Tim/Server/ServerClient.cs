@@ -12,10 +12,13 @@ namespace Server
     class ServerClient
     {
         private TcpClient Client;
+        private string ClientID;
+        private bool StartCourse;
 
         public ServerClient(TcpClient Client)
         {
             this.Client = Client;
+            this.StartCourse = false;
         }
 
         public void HandleClientThread()
@@ -26,11 +29,15 @@ namespace Server
 
             if (type == "patient")
             {
+                ClientID = "patient_" + Server.PatientCount;
+                Server.PatientCount++;
                 Console.WriteLine("Patient has connected");
                 HandlePatient();
             }
             else if (type == "doctor")
             {
+                ClientID = "doctor_" + Server.DoctorCount;
+                Server.DoctorCount++;
                 Console.WriteLine("Doctor has connected");
                 HandleDoctor();
             }
@@ -40,7 +47,10 @@ namespace Server
         {
             while (true)
             {
-
+                if (StartCourse)
+                {
+                    SendDataRequest();
+                }
             }
         }
 
@@ -62,6 +72,8 @@ namespace Server
             {
                 case "login": ReceivedLogin(data); break;
                 case "create_account": ReceivedCreateAccount(data); break;
+                case "course_start": ReceivedStartCourse(data); break;
+                case "change_power": ReceivedChangePower(data); break;
                 case "add_patient": ReceivedAddPatient(data); break;
                 case "patient_data": ReceivedPatientData(data); break;
                 case "client_disconnect": ReceivedClientDisconnect(); break;
@@ -78,9 +90,9 @@ namespace Server
             Console.WriteLine("gelezen username = {0}", username);
 
             if (IsLoginCorrect(username, password))
-                WriteTextMessage("AccountExists");
+                WriteTextMessage(this.Client, "AccountExists");
             else
-                WriteTextMessage("AccountDoesntExist");
+                WriteTextMessage(this.Client, "AccountDoesntExist");
         }
 
         private void ReceivedCreateAccount(string data)
@@ -90,11 +102,35 @@ namespace Server
             string password = accountData.password;
 
             if (Server.DoctorAccounts.Keys.Contains(username))
-                WriteTextMessage("AccountExists");
+                WriteTextMessage(this.Client, "AccountExists");
             else
             {
                 Server.AddDoctorAccount(username, password);
-                WriteTextMessage("AccountCreated");
+                WriteTextMessage(this.Client, "AccountCreated");
+            }
+        }
+
+        private void ReceivedStartCourse(string data)
+        {
+            dynamic receivedData = JsonConvert.DeserializeObject(data);
+            string patientID = receivedData.patientID;
+
+            ServerClient client = FindClientByID(patientID);
+            if(client != null)
+            {
+                client.StartCourse = true;
+                WriteTextMessage(client.Client, CreateJsonCommand("course_start", ""));
+            }
+        }
+        private void ReceivedChangePower(string data)
+        {
+            dynamic receivedData = JsonConvert.DeserializeObject(data);
+            string patientID = receivedData.patientID;
+
+            ServerClient client = FindClientByID(patientID);
+            if (client != null)
+            {
+                WriteTextMessage(client.Client, CreateJsonCommand("change_power", data));
             }
         }
 
@@ -115,7 +151,16 @@ namespace Server
             string patientName = patientNameData.patientName;
 
             string patientData = Server.ReadPatientFromFile(patientName);
-            WriteTextMessage(patientData);
+            WriteTextMessage(this.Client, patientData);
+        }
+
+        private void SendDataRequest()
+        {
+            string receivedData = ReadTextMessage();
+
+            ServerClient client = FindClientByID("doctor_0");
+            if (client != null)
+                WriteTextMessage(client.Client, receivedData);
         }
 
         private bool IsLoginCorrect(String username, String password)
@@ -132,6 +177,15 @@ namespace Server
                 }
             }
             return correctLogin;
+        }
+
+        private ServerClient FindClientByID(string RequestedClientID)
+        {
+            ServerClient requestedClient = null;
+            foreach (ServerClient client in Server.Clients)
+                if (client.ClientID == RequestedClientID)
+                    requestedClient = client;
+            return requestedClient;
         }
 
         private string GetAllDataFromUser(string user)
@@ -159,11 +213,11 @@ namespace Server
             return output;
         }
 
-        private void WriteTextMessage(string message)
+        private void WriteTextMessage(TcpClient client, string message)
         {
             try
             {
-                StreamWriter stream = new StreamWriter(Client.GetStream(), Encoding.UTF32);
+                StreamWriter stream = new StreamWriter(client.GetStream(), Encoding.UTF32);
                 stream.WriteLine(message);
                 stream.Flush();
             }

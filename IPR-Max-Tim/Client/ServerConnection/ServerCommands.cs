@@ -11,8 +11,7 @@ namespace Client.ServerConnection
         {
             return JsonConvert.SerializeObject(new
             {
-                command = "data",
-                origin = BikeID,
+                command = "bike_data",
                 data = new
                 {
                     time = time,
@@ -27,8 +26,7 @@ namespace Client.ServerConnection
         {
             return JsonConvert.SerializeObject(new
             {
-                command = "data",
-                origin = BikeID,
+                command = "bike_data",
                 data = new
                 {
                     time = package.time,

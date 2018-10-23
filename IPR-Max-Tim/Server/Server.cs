@@ -14,7 +14,10 @@ namespace Server
     class Server
     {
         private static TcpListener Listener;
+        public static List<ServerClient> Clients = new List<ServerClient>();
         public static SortedList<string, string> DoctorAccounts;
+        public static int PatientCount = 0;
+        public static int DoctorCount = 0;
 
         public Server()
         {
@@ -35,6 +38,7 @@ namespace Server
         {
             TcpClient client = Listener.EndAcceptTcpClient(ar);
             ServerClient serverClient = new ServerClient(client);
+            Clients.Add(serverClient);
             Thread clientThread = new Thread(() => serverClient.HandleClientThread());
             clientThread.Start();
             Listener.BeginAcceptTcpClient(new AsyncCallback(OnPersonConnect), null);

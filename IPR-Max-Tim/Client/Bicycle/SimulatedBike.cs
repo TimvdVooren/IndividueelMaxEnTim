@@ -1,10 +1,6 @@
 ﻿using Client.SerialCommunication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Client.Bicycle
 {
@@ -20,6 +16,7 @@ namespace Client.Bicycle
         Thread worker;
 
         private IX7DataListener listener;
+        private SimulationManipulator sm;
 
         public SimulatedBike(IX7DataListener listener, int id)
         {
@@ -38,9 +35,9 @@ namespace Client.Bicycle
 
         public void StartThread()
         {
-
+            sm = new SimulationManipulator(this);
+            sm.ShowDialog();
         }
-
         public void SetSpeed(int speed)
         {
             rpm = speed;
@@ -49,11 +46,12 @@ namespace Client.Bicycle
 
         public override void SetPower(int speed)
         {
-            this.power = (int)Math.Floor((speed * 3.75) + 25);
+            this.power = (int)Math.Floor((speed * 4d) + 25d);
         }
+
         public override void SetDistance(int hectometers)
         {
-            distance = distance / 10;
+            this.distance = hectometers / 10;
         }
         public override void SetEnergy(int kiloJoules)
         {
@@ -61,7 +59,10 @@ namespace Client.Bicycle
         }
         public override void SetTime(int seconds)
         {
-            time = new DateTime(0, 0, 0, 0, (int)Math.Floor(seconds / 60.0), seconds % 60);
+            int min = (int)Math.Floor(seconds / 60.0);
+            int sec = seconds % 60;
+            time = new DateTime(1970, 01, 01, 0, min, sec);
+            //time = new DateTime();
         }
         public override void SetTime(DateTime time)
         {
@@ -73,12 +74,22 @@ namespace Client.Bicycle
             return id;
         }
 
+        public override void SetCountdownMode()
+        {
+            Console.WriteLine($"{this} does not have that functionality");
+        }
+
+        public override void SetCountupMode()
+        {
+            Console.WriteLine($"{this} does not have that functionality");
+        }
+
         public override void Reset()
         {
             this.rpm = 0;
             this.distance = 0;
             this.energy = 0;
-            this.time = new DateTime(0, 0, 0, 0, 0, 0);
+            this.time = new DateTime(1970, 1, 1, 0, 0, 0);
             this.power = 25;
             this.id = "SimBike";
         }
@@ -87,14 +98,16 @@ namespace Client.Bicycle
             this.rpm = 0;
             this.distance = 0;
             this.energy = 0;
-            this.time = new DateTime(0, 0, 0, 0, 0, 0);
+            this.time = new DateTime(1970, 1, 1, 0, 0, 0);
             this.power = 25;
             this.id = "SimBike";
         }
 
         public override void GetVariables()
         {
-            listener.OnDataReceived($"0|0|0|{this.rpm}|{this.power}|{this.distance}|{this.time}|0");
+            listener.OnDataReceived($"0|{this.rpm}|{this.energy}|0|{this.power}|{this.distance}|{this.time.Minute}:{this.time.Second}|0");
         }
+
+
     }
 }

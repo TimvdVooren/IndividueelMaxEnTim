@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Bicycle
 {
@@ -21,8 +17,8 @@ namespace Client.Bicycle
         public abstract void Reset();                       // RS
         protected abstract void StartEdit();                // CD / CM
 
-
-        // TODO: New methods like max/avg/current speed?
+        public abstract void SetCountdownMode();    // CM
+        public abstract void SetCountupMode();      // CD
 
     }
 }

@@ -10,8 +10,9 @@ using System.Timers;
 
 namespace Client.ServerConnection
 {
-    class Connection : IBikeDataListener
+    class Connection : IBikeDataListener, IReceiver
     {
+        private TCPReceiver receiver;
         private Thread worker;
         private TcpClient client;
         private BikeDataPackage latestBikeData;
@@ -71,6 +72,18 @@ namespace Client.ServerConnection
             }
             if (!client.Connected)
                 ConnectToServer(ip, port);
+            else
+            {
+                Console.WriteLine("Connected succesfully");
+                AddReceiverThread();
+            }
+        }
+
+        private void AddReceiverThread()
+        {
+            receiver = new TCPReceiver(client, this);
+            worker = new Thread(new ThreadStart(receiver.Start));
+            worker.Start();
         }
 
         private void HandleData(string command, string data)
@@ -78,25 +91,13 @@ namespace Client.ServerConnection
             dynamic receivedData = JsonConvert.DeserializeObject(data);
             switch (command)
             {
-                case "chat":
-                    string directMessage = "[DM]:" + receivedData.message;
-                    Console.WriteLine("New message received: " + directMessage);
-                    break;
-                case "broadcast":
-                    string broadcastMessage = "[BC]:" + receivedData.message;
-                    Console.WriteLine("New message received: " + broadcastMessage);
-                    break;
                 case "course_start":
-                    string time = receivedData.time;
-                    string power = receivedData.power;
-                    string distance = receivedData.distance;
-                    BikeDataPackage package = new BikeDataPackage(time, power, "0", distance, "0");
-                    StartCourse(package);
+                    StartCourse();
                     break;
                 case "course_stop":
                     EndCourse();
                     break;
-                case "set_power":
+                case "change_power":
                     int increment = receivedData.increment;
                     SetPower(increment);
                     break;
@@ -106,20 +107,12 @@ namespace Client.ServerConnection
             }
         }
 
-        private void StartCourse(BikeDataPackage bdp)
+        private void StartCourse()
         {
-            DateTime newBikeTime = new DateTime(1970, 01, 01, 00, (int)Math.Floor(int.Parse(bdp.time) / 60d), int.Parse(bdp.time) % 60);
-
-            SerialDataHandler.getInstance().ResetWithVariables(int.Parse(bdp.power), Convert.ToInt32(newBikeTime.Minute), Convert.ToInt32(newBikeTime.Second), (int)(double.Parse(bdp.distance) * 1000));
-
+            SerialDataHandler.getInstance().ResetWithVariables(50, 0, 0, 0);
             dataRequested = true;
-
-            //VRHandler.getInstance().SetupScene(400, 400);
-
-            // Set variables
-            // Start sending variables
-            // Setup VR
         }
+
         private void EndCourse()
         {
             dataRequested = false;
@@ -158,18 +151,38 @@ namespace Client.ServerConnection
 
         public void OnBikeDataReceived(BikeDataPackage package)
         {
+            //MISSCHIEN MOET DIT AAN DE DOKTERKANT GEBEUREN
+            string time = package.time;
+            string[] timeComponents = time.Split(':');
+            
+            if (int.Parse(timeComponents[0]) < 2)
+            {
+                SerialDataHandler.getInstance().SetPower(80);
+                package.power = "80";
+            }
+            //else if (int.Parse(timeComponents[0]) < 6)
+                //correctionPower = int.Parse(package.power);
+            else if (int.Parse(timeComponents[0]) >= 6 && int.Parse(timeComponents[0]) < 7)
+            {
+                SerialDataHandler.getInstance().SetPower(40);
+                package.power = "40";
+            }
+            else if(int.Parse(timeComponents[0]) >= 7)
+            {
+                SerialDataHandler.getInstance().SetPower(25);
+                package.power = "25";
+            }
+
             latestBikeData = package;
         }
 
         private void OnTimerTick(object source, ElapsedEventArgs args)
         {
-            //Console.WriteLine("Tick");
             SerialDataHandler.getInstance().RequestStatus();
 
             if (dataRequested)
             {
                 SendMessage(ServerCommands.SendBikeData(latestBikeData));
-                //Console.WriteLine("Tock");
             }
         }
     }

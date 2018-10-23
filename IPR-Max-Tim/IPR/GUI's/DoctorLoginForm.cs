@@ -37,6 +37,7 @@ namespace IPR.GUI_s
                 if (DoctorClient.GuiDataToServer("login", Username, Password))
                 {
                     SpecialistForm specialistForm = new SpecialistForm(DoctorClient);
+                    DoctorClient.DocGUI = specialistForm;
                     specialistForm.Show();
                     this.Visible = false;
                 }

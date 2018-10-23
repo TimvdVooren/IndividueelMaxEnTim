@@ -38,6 +38,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +54,12 @@
     <Compile Include="Bicycle\IBikeDataListener.cs" />
     <Compile Include="Bicycle\PhysicalBike.cs" />
     <Compile Include="Bicycle\SimulatedBike.cs" />
+    <Compile Include="Bicycle\SimulationManipulator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bicycle\SimulationManipulator.Designer.cs">
+      <DependentUpon>SimulationManipulator.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataHandling\SerialDataHandler.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Program.cs" />
@@ -60,11 +68,18 @@
     <Compile Include="SerialCommunication\SerialManager.cs" />
     <Compile Include="SerialCommunication\X7Data.cs" />
     <Compile Include="ServerConnection\Connection.cs" />
+    <Compile Include="ServerConnection\IReceiver.cs" />
     <Compile Include="ServerConnection\ServerCommands.cs" />
+    <Compile Include="ServerConnection\TCPReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Bicycle\SimulationManipulator.resx">
+      <DependentUpon>SimulationManipulator.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
