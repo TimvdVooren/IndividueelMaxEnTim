@@ -17,6 +17,7 @@ namespace IPR.GUI_s
         private DoctorClient DoctorClient;
         private double power;
         private double speed;
+        private bool courseStarted = false;
 
         public SpecialistForm(DoctorClient DoctorClient)
         {
@@ -85,6 +86,7 @@ namespace IPR.GUI_s
 
         private void startTest_Click(object sender, EventArgs e)
         {
+            courseStarted = true;
             DoctorClient.StartCourse();
         }
 
@@ -98,15 +100,16 @@ namespace IPR.GUI_s
             DoctorClient.ChangePower(-1);
         }
 
-        int counter = 0;
+        int counter = 1;
         
         private void RPMWChartTimer_Tick(object sender, EventArgs e)
         {
-            power = 50;
-            speed = 50;
-            RPMWChart.Series[0].Points.AddXY(counter,power);
-            RPMWChart.Series[1].Points.AddXY(counter,speed);
-            counter++;
+            if (courseStarted == true)
+            {
+                RPMWChart.Series[0].Points.AddXY(counter, power);
+                RPMWChart.Series[1].Points.AddXY(counter, speed);
+                counter++;
+            }
         }
     }
 }
