@@ -13,11 +13,13 @@ namespace IPR.GUI_s
 {
     partial class AddPatientForm : Form
     {
+        private SpecialistForm specialistForm;
         private DoctorClient DoctorClient;
 
-        public AddPatientForm(DoctorClient DoctorClient)
+        public AddPatientForm(SpecialistForm specialistForm, DoctorClient DoctorClient)
         {
             InitializeComponent();
+            this.specialistForm = specialistForm;
             this.DoctorClient = DoctorClient;
         }
 
@@ -34,6 +36,9 @@ namespace IPR.GUI_s
             {
                 Patient patient = new Patient(patientName, patientAge, patientGender, patientWeight);
                 DoctorClient.AddPatient(patient);
+                PatientGUI patientGUI = new PatientGUI(DoctorClient);
+                specialistForm.AddPatientGUI(patientGUI);
+                patientGUI.Show();
                 this.Dispose();
             }
             else
