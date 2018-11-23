@@ -47,10 +47,11 @@
             this.CancelButton.FlatAppearance.BorderSize = 0;
             this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CancelButton.Location = new System.Drawing.Point(224, 255);
+            this.CancelButton.Location = new System.Drawing.Point(168, 207);
+            this.CancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(145, 33);
-            this.CancelButton.TabIndex = 0;
+            this.CancelButton.Size = new System.Drawing.Size(109, 27);
+            this.CancelButton.TabIndex = 6;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = false;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -62,10 +63,11 @@
             this.AddPatientButton.FlatAppearance.BorderSize = 0;
             this.AddPatientButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddPatientButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddPatientButton.Location = new System.Drawing.Point(58, 255);
+            this.AddPatientButton.Location = new System.Drawing.Point(44, 207);
+            this.AddPatientButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AddPatientButton.Name = "AddPatientButton";
-            this.AddPatientButton.Size = new System.Drawing.Size(154, 33);
-            this.AddPatientButton.TabIndex = 1;
+            this.AddPatientButton.Size = new System.Drawing.Size(116, 27);
+            this.AddPatientButton.TabIndex = 5;
             this.AddPatientButton.Text = "Add Patient";
             this.AddPatientButton.UseVisualStyleBackColor = false;
             this.AddPatientButton.Click += new System.EventHandler(this.AddPatientButton_Click);
@@ -73,42 +75,47 @@
             // gender
             // 
             this.gender.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.gender.Location = new System.Drawing.Point(224, 147);
+            this.gender.Location = new System.Drawing.Point(168, 119);
+            this.gender.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gender.Name = "gender";
-            this.gender.Size = new System.Drawing.Size(145, 28);
-            this.gender.TabIndex = 2;
+            this.gender.Size = new System.Drawing.Size(110, 24);
+            this.gender.TabIndex = 3;
             // 
             // age
             // 
             this.age.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.age.Location = new System.Drawing.Point(224, 98);
+            this.age.Location = new System.Drawing.Point(168, 80);
+            this.age.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.age.Name = "age";
-            this.age.Size = new System.Drawing.Size(145, 28);
-            this.age.TabIndex = 3;
+            this.age.Size = new System.Drawing.Size(110, 24);
+            this.age.TabIndex = 2;
             // 
             // name
             // 
             this.name.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.name.Location = new System.Drawing.Point(224, 49);
+            this.name.Location = new System.Drawing.Point(168, 40);
+            this.name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(145, 28);
-            this.name.TabIndex = 4;
+            this.name.Size = new System.Drawing.Size(110, 24);
+            this.name.TabIndex = 1;
             // 
             // weight
             // 
             this.weight.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.weight.Location = new System.Drawing.Point(224, 192);
+            this.weight.Location = new System.Drawing.Point(168, 156);
+            this.weight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.weight.Name = "weight";
-            this.weight.Size = new System.Drawing.Size(145, 28);
-            this.weight.TabIndex = 5;
+            this.weight.Size = new System.Drawing.Size(110, 24);
+            this.weight.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(54, 50);
+            this.label1.Location = new System.Drawing.Point(40, 41);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 21);
+            this.label1.Size = new System.Drawing.Size(108, 19);
             this.label1.TabIndex = 6;
             this.label1.Text = "Patient Name:";
             // 
@@ -116,9 +123,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(54, 98);
+            this.label2.Location = new System.Drawing.Point(40, 80);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 21);
+            this.label2.Size = new System.Drawing.Size(93, 19);
             this.label2.TabIndex = 7;
             this.label2.Text = "Patient Age:";
             // 
@@ -126,9 +134,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(54, 146);
+            this.label3.Location = new System.Drawing.Point(40, 119);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(144, 21);
+            this.label3.Size = new System.Drawing.Size(119, 19);
             this.label3.TabIndex = 8;
             this.label3.Text = "Patient Gender:";
             // 
@@ -136,20 +145,20 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(54, 193);
+            this.label4.Location = new System.Drawing.Point(40, 157);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 21);
+            this.label4.Size = new System.Drawing.Size(116, 19);
             this.label4.TabIndex = 9;
             this.label4.Text = "Patient Weight:";
             // 
             // AddPatientForm
             // 
             this.AcceptButton = this.AddPatientButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.CancelButton = this.CancelButton;
-            this.ClientSize = new System.Drawing.Size(411, 353);
+            this.ClientSize = new System.Drawing.Size(308, 287);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -161,6 +170,7 @@
             this.Controls.Add(this.AddPatientButton);
             this.Controls.Add(this.CancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddPatientForm";

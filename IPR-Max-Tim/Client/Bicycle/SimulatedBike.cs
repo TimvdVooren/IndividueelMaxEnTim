@@ -1,111 +1,41 @@
-﻿using Client.SerialCommunication;
-using System;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Client.Bicycle
 {
-    class SimulatedBike : Bike
+    class SimulatedBike : IBike
     {
-        private int rpm;
-        private int distance;
-        private int energy;
-        public int power { get; set; }
-        private DateTime time;
-        private string id;
-
-        Thread worker;
-
-        private IX7DataListener listener;
-        private SimulationManipulator sm;
-
-        public SimulatedBike(IX7DataListener listener, int id)
+        public void Reset()
         {
-            this.rpm = 0;
-            this.distance = 0;
-            this.energy = 0;
-            this.time = new DateTime(1970, 1, 1, 0, 0, 0);
-            this.power = 25;
-            this.id = id.ToString();
-            this.listener = listener;
-
-
-            worker = new Thread(new ThreadStart(StartThread));
-            worker.Start();
+            throw new NotImplementedException();
         }
 
-        public void StartThread()
+        public void Close()
         {
-            sm = new SimulationManipulator(this);
-            sm.ShowDialog();
-        }
-        public void SetSpeed(int speed)
-        {
-            rpm = speed;
-            GetVariables();
+            throw new NotImplementedException();
         }
 
-        public override void SetPower(int power)
+        public void PutDistance(int distance)
         {
-            this.power = power;
+            throw new NotImplementedException();
         }
 
-        public override void SetDistance(int hectometers)
+        public void PutPower(int power)
         {
-            this.distance = hectometers / 10;
-        }
-        public override void SetEnergy(int kiloJoules)
-        {
-            energy = kiloJoules;
-        }
-        public override void SetTime(int seconds)
-        {
-            int min = (int)Math.Floor(seconds / 60.0);
-            int sec = seconds % 60;
-            time = new DateTime(1970, 01, 01, 0, min, sec);
-            //time = new DateTime();
-        }
-        public override void SetTime(DateTime time)
-        {
-            this.time = time;
+            throw new NotImplementedException();
         }
 
-        public override string GetID()
+        public void PutTime(int time)
         {
-            return id;
+            throw new NotImplementedException();
         }
 
-        public override void SetCountdownMode()
+        public BikeDataPackage ReadData()
         {
-            Console.WriteLine($"{this} does not have that functionality");
-        }
-
-        public override void SetCountupMode()
-        {
-            Console.WriteLine($"{this} does not have that functionality");
-        }
-
-        public override void Reset()
-        {
-            this.rpm = 0;
-            this.distance = 0;
-            this.energy = 0;
-            this.time = new DateTime(1970, 1, 1, 0, 0, 0);
-            this.power = 25;
-            this.id = "SimBike";
-        }
-        protected override void StartEdit()
-        {
-            this.rpm = 0;
-            this.distance = 0;
-            this.energy = 0;
-            this.time = new DateTime(1970, 1, 1, 0, 0, 0);
-            this.power = 25;
-            this.id = "SimBike";
-        }
-
-        public override void GetVariables()
-        {
-            listener.OnDataReceived($"0|{this.rpm}|{this.energy}|0|{this.power}|{this.distance}|{this.time.Minute}:{this.time.Second}|0");
+            throw new NotImplementedException();
         }
     }
 }

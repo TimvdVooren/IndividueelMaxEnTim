@@ -50,15 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bicycle\Bike.cs" />
-    <Compile Include="Bicycle\BikeDataPackage.cs" />
-    <Compile Include="Bicycle\BikePoller.cs" />
-    <Compile Include="Bicycle\IBikeDataListener.cs" />
-    <Compile Include="Bicycle\PhysicalBike.cs" />
-    <Compile Include="Bicycle\SimulatedBike.cs" />
+    <Compile Include="Client\BikeDataPackage.cs" />
     <Compile Include="Client\DoctorClient.cs" />
     <Compile Include="Client\Patient.cs" />
-    <Compile Include="DataHandling\SerialDataHandler.cs" />
     <Compile Include="GUI%27s\AddPatientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,7 +92,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialCommunication\IX7DataListener.cs" />
-    <Compile Include="SerialCommunication\SerialManager.cs" />
     <Compile Include="SerialCommunication\X7Data.cs" />
     <EmbeddedResource Include="GUI%27s\AddPatientForm.resx">
       <DependentUpon>AddPatientForm.cs</DependentUpon>

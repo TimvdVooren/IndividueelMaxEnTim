@@ -32,11 +32,12 @@ namespace IPR.GUI_s
 
         public void BikeDataToGUI(string data)
         {
+            Console.WriteLine(data);
             dynamic receivedData = JsonConvert.DeserializeObject(data);
-            powerLabel.Text = "Power: " + receivedData.data.power;
-            power = receivedData.data.power;
+            powerLabel.Text = "Power: " + receivedData.power;
+            this.power = receivedData.power;
 
-            string rpm = receivedData.data.rpm;
+            string rpm = receivedData.rpm;
 
             if (int.Parse(rpm) <= 50 && int.Parse(rpm) != 0)
                 DoctorClient.ChangePower(1);
@@ -45,7 +46,7 @@ namespace IPR.GUI_s
 
             rpmLabel.Text = "RPM: " + rpm;
 
-            string time = receivedData.data.time;
+            string time = receivedData.time;
             string[] timeComponents = time.Split(':');
 
             int i = 0;
@@ -62,9 +63,9 @@ namespace IPR.GUI_s
                 time = time + " TEST FINISHED";
 
             timeLabel.Text = "Time: " + time;
-            distanceLabel.Text = "Distance: " + receivedData.data.distance;
-            energyLabel.Text = "Energy: " + receivedData.data.energy;
-            heartrateLabel.Text = "Heartrate: " + receivedData.data.heartrate;
+            distanceLabel.Text = "Distance: " + receivedData.distance;
+            energyLabel.Text = "Energy: " + receivedData.energy;
+            heartrateLabel.Text = "Heartrate: " + receivedData.heartrate;
         }
 
         private void startTest_Click(object sender, EventArgs e)

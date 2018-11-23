@@ -60,7 +60,6 @@ namespace IPR.Client
 
         public void StartCourse()
         {
-            //DIT IS HARDCODED PATIENTID
             string data = JsonConvert.SerializeObject(new
             {
                 patientID = "patient_0",
@@ -122,7 +121,9 @@ namespace IPR.Client
 
         private void HandleBikeData(string data)
         {
-            DocGUI.SetBikeData(data);
+            dynamic receivedData = JsonConvert.DeserializeObject(data);
+            string bikeData = receivedData.data;
+            DocGUI.SetBikeData(bikeData);
         }
 
         private string CreateJsonCommand(string command, string data)
@@ -131,7 +132,6 @@ namespace IPR.Client
             {
                 command = command,
                 data = data,
-
             });
             return output;
         }

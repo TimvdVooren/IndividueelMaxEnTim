@@ -1,26 +1,21 @@
-﻿using Client.DataHandling;
-using Client.ServerConnection;
+﻿using Client.Bicycle;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Client
 {
     class Program
     {
-        static int _BIKE_MODE = 1; // 0 = realbike, 1 = simbike
-        static string _SERVER_IP = "localhost";
+        private static string ServerIP = "localhost";
+        private static int ServerPort = 6666;
 
         static void Main(string[] args)
         {
-            // The IP Address of the Server to connect to
-            
-            Console.WriteLine("---  Setting up Bicycle   ---");
-            SerialDataHandler.getInstance().InitializeBike(_BIKE_MODE);
-            Console.WriteLine("---  Bicycle setup succesful ---");
-            Console.WriteLine("");
-            Console.WriteLine("---  Connecting to Remote-Healthcare server  ---");
-            Connection con = new Connection(_SERVER_IP, 6666);
-            Console.WriteLine("---  Connected sucesfully to Remote-Healthcare server  ---");
-            Console.ReadLine();
+            PatientClient patientClient = new PatientClient(ServerIP, ServerPort);
+            patientClient.bike = new RealBike("COM5");
         }
     }
 }
