@@ -11,11 +11,15 @@ namespace Client
     {
         private static string ServerIP = "localhost";
         private static int ServerPort = 6666;
+        private static int bikeSort = 0;
 
         static void Main(string[] args)
         {
             PatientClient patientClient = new PatientClient(ServerIP, ServerPort);
-            patientClient.bike = new RealBike("COM5");
+            if (bikeSort == 0)
+                patientClient.bike = new RealBike("COM5");
+            else if (bikeSort == 1)
+                patientClient.bike = new SimulatedBike();
         }
     }
 }

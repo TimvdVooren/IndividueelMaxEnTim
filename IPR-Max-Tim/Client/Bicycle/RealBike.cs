@@ -49,6 +49,7 @@ namespace Client.Bicycle
 
         public BikeDataPackage ReadData()
         {
+            SerialConnection.WriteLine("CM");
             SerialConnection.WriteLine("ST");
             string bikeData = SerialConnection.ReadLine();
 

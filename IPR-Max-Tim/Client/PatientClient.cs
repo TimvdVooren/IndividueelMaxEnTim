@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Client
 {
@@ -15,7 +16,7 @@ namespace Client
     {
         private TcpClient client;
         public IBike bike { get; set; }
-        private Boolean runningCourse;
+        private System.Timers.Timer bikeDataTimer;
 
         public PatientClient(string ip, int port)
         {
@@ -29,8 +30,10 @@ namespace Client
                 }
             });
             WriteTextMessage(clientType);
-
-            runningCourse = false;
+            
+            bikeDataTimer = new System.Timers.Timer(500);
+            bikeDataTimer.AutoReset = true;
+            bikeDataTimer.Elapsed += Timer_Elapsed;
             Thread clientThread = new Thread(StartClient);
             clientThread.Start();
         }
@@ -40,20 +43,6 @@ namespace Client
             while (true)
             {
                 HandleData(ReadTextMessage());
-                if (runningCourse)
-                {
-                    BikeDataPackage bdp = bike.ReadData();
-                    string data = JsonConvert.SerializeObject(new
-                    {
-                        power = bdp.Power,
-                        rpm = bdp.Rpm,
-                        time = bdp.Time,
-                        distance = bdp.Distance,
-                        energy = bdp.Energy,
-                        heartrate = bdp.Energy,
-                    });
-                    WriteTextMessage(CreateJsonCommand("bike_data", data));
-                }
             }
         }
 
@@ -67,9 +56,11 @@ namespace Client
             switch (command)
             {
                 case "course_start":
-                    HandleStartCourse();
+                    bike.Reset();
+                    bikeDataTimer.Start();
                     break;
                 case "course_stop":
+                    bikeDataTimer.Stop();
                     break;
                 case "change_power":
                     HandleChangePower(commandData);
@@ -77,10 +68,19 @@ namespace Client
             }
         }
 
-        private void HandleStartCourse()
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            bike.Reset();
-            runningCourse = true;
+            BikeDataPackage bdp = bike.ReadData();
+            string data = JsonConvert.SerializeObject(new
+            {
+                power = bdp.Power,
+                rpm = bdp.Rpm,
+                time = bdp.Time,
+                distance = bdp.Distance,
+                energy = bdp.Energy,
+                heartrate = bdp.Energy,
+            });
+            WriteTextMessage(CreateJsonCommand("bike_data", data));
         }
 
         private void HandleChangePower(string data)
@@ -104,7 +104,6 @@ namespace Client
             {
                 command = command,
                 data = data,
-
             });
             return output;
         }

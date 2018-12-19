@@ -2,20 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client.Bicycle
 {
     class SimulatedBike : IBike
     {
+        private SimulatedBikeForm bikeForm;
+
+        public SimulatedBike()
+        {
+            Thread simulationThread = new Thread(StartSimulator);
+            simulationThread.Start();
+        }
+
         public void Reset()
         {
-            throw new NotImplementedException();
+            bikeForm.Reset();
         }
 
         public void Close()
         {
-            throw new NotImplementedException();
+            //bikeForm.Dispose();
         }
 
         public void PutDistance(int distance)
@@ -25,17 +34,23 @@ namespace Client.Bicycle
 
         public void PutPower(int power)
         {
-            throw new NotImplementedException();
+            bikeForm.SetPower(power);
         }
 
         public void PutTime(int time)
         {
-            throw new NotImplementedException();
+            bikeForm.SetTime(time);
         }
 
         public BikeDataPackage ReadData()
         {
-            throw new NotImplementedException();
+            return new BikeDataPackage(bikeForm.ReadBikeData());
+        }
+
+        private void StartSimulator()
+        {
+            this.bikeForm = new SimulatedBikeForm();
+            bikeForm.Show();
         }
     }
 }
