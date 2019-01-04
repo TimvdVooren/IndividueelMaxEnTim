@@ -36,7 +36,6 @@ namespace IPR.GUI_s
 
         public void BikeDataToGUI(string data)
         {
-            Console.WriteLine(data);
             dynamic receivedData = JsonConvert.DeserializeObject(data);
             powerLabel.Text = "Power: " + receivedData.power;
             this.power = receivedData.power;

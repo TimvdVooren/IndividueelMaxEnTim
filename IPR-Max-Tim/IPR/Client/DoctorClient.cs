@@ -139,14 +139,11 @@ namespace IPR.Client
         private string ReadTextMessage()
         {
             StreamReader streamReader = new StreamReader(client.GetStream(), Encoding.UTF8);
-
             string readMessage = streamReader.ReadLine();
 
             if (readMessage.Contains("bike_data"))
-            {
                 HandleBikeData(readMessage);
-            }
-
+            
             return readMessage;
         }
 
