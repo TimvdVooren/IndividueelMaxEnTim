@@ -15,8 +15,12 @@ namespace IPR.GUI_s
     partial class PatientGUI : Form
     {
         private DoctorClient DoctorClient;
-        private double power;
-        private double speed;
+        public double power;
+        public double speed;
+        public  int leeftijd;
+        public double heartrate;
+        public string gender;
+
         private bool courseStarted = false;
 
         public PatientGUI(DoctorClient DoctorClient)
@@ -66,6 +70,45 @@ namespace IPR.GUI_s
             distanceLabel.Text = "Distance: " + receivedData.distance;
             energyLabel.Text = "Energy: " + receivedData.energy;
             heartrateLabel.Text = "Heartrate: " + receivedData.heartrate;
+        }
+
+        private double CalulateVO2()
+        {
+            int age = leeftijd;
+            double totalheartrate = 0;
+            double load = 0;
+            double VO2 = 0;
+
+            if (counter >= 120 && counter >= 360)
+            {
+                totalheartrate += heartrate;
+            }
+            if (counter >= 360)
+            {
+                totalheartrate = totalheartrate / counter;
+                load = power;
+                if (gender == "male")
+                {
+                    VO2 = (0.00212 * (load * 6.1182972778676) + 0.299) / (0.769 * totalheartrate - 48.5) * 100;
+                }
+                else
+                {
+                    VO2 = (0.00193 * (load * 6.1182972778676) + 0.326) / (0.769 * totalheartrate - 56.1) * 100;
+                }
+
+            }
+
+            if (leeftijd >= 15 && leeftijd < 25) { return VO2 * 1.1; }
+            if (leeftijd >= 25 && leeftijd < 35) { return VO2 * 1; }
+            if (leeftijd >= 35 && leeftijd < 40) { return VO2 * 0.87; }
+            if (leeftijd >= 40 && leeftijd < 45) { return VO2 * 0.83; }
+            if (leeftijd >= 45 && leeftijd < 50) { return VO2 * 0.78; }
+            if (leeftijd >= 50 && leeftijd < 55) { return VO2 * 0.75; }
+            if (leeftijd >= 55 && leeftijd < 60) { return VO2 * 0.71; }
+            if (leeftijd >= 60 && leeftijd < 65) { return VO2 * 0.68; }
+            if (leeftijd >= 65) { return VO2 * 0.65; }
+
+            return VO2;
         }
 
         private void startTest_Click(object sender, EventArgs e)
