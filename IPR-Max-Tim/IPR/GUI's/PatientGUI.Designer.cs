@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.heartrateLabel = new System.Windows.Forms.Label();
             this.powerDown = new System.Windows.Forms.Button();
             this.powerUp = new System.Windows.Forms.Button();
@@ -44,6 +44,7 @@
             this.RPMWChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.startTest = new System.Windows.Forms.Button();
             this.RPMWChartTimer = new System.Windows.Forms.Timer(this.components);
+            this.StateLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.RPMWChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,20 +148,20 @@
             // 
             // RPMWChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.RPMWChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.RPMWChart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.RPMWChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.RPMWChart.Legends.Add(legend1);
             this.RPMWChart.Location = new System.Drawing.Point(311, 232);
             this.RPMWChart.Name = "RPMWChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series2";
-            this.RPMWChart.Series.Add(series3);
-            this.RPMWChart.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            this.RPMWChart.Series.Add(series1);
+            this.RPMWChart.Series.Add(series2);
             this.RPMWChart.Size = new System.Drawing.Size(467, 206);
             this.RPMWChart.TabIndex = 17;
             this.RPMWChart.Text = "chart1";
@@ -185,11 +186,23 @@
             // 
             this.RPMWChartTimer.Interval = 500;
             // 
+            // StateLabel
+            // 
+            this.StateLabel.AutoSize = true;
+            this.StateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.StateLabel.Location = new System.Drawing.Point(22, 323);
+            this.StateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.StateLabel.Name = "StateLabel";
+            this.StateLabel.Size = new System.Drawing.Size(49, 19);
+            this.StateLabel.TabIndex = 19;
+            this.StateLabel.Text = "State:";
+            // 
             // PatientGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.StateLabel);
             this.Controls.Add(this.startTest);
             this.Controls.Add(this.RPMWChart);
             this.Controls.Add(this.heartrateLabel);
@@ -221,5 +234,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart RPMWChart;
         private System.Windows.Forms.Button startTest;
         private System.Windows.Forms.Timer RPMWChartTimer;
+        private System.Windows.Forms.Label StateLabel;
     }
 }
