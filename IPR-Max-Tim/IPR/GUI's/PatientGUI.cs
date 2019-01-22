@@ -29,7 +29,7 @@ namespace IPR.GUI_s
             InitializeComponent();
             this.RPMWChart.ChartAreas[0].AxisX.LabelStyle.Format = "";
             this.RPMWChart.Series[0].Name = "Power";
-            this.RPMWChart.Series[1].Name = "Speed";
+            this.RPMWChart.Series[1].Name = "Heartbeat";
             //RPMWChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             RPMWChartTimer.Start();
         }
@@ -83,13 +83,13 @@ namespace IPR.GUI_s
         {
             double totalheartrate = 0;
 
-            if(counter >= 0 && counter >= 120)
+            if(counter >= 0 && counter <= 120)
             {
                 StateLabel.Text = "Warming up";
             }
-             if (counter <= 120 && counter >= 360)
+             if (counter >= 120 && counter <= 360)
              {
-                if (heartrate <= 130)
+                if (heartrate >= 130)
                 {
                     StateLabel.Text = "Steady";
                     StateLabel.ForeColor = Color.Green;
@@ -107,7 +107,8 @@ namespace IPR.GUI_s
                 if (StateLabel.Text == "Steady")
                 {
                     totalheartrate = totalheartrate / 140;
-                    CalulateVO2(totalheartrate);
+                    double VO2 = CalulateVO2(totalheartrate);
+                    VO2label.Text = VO2.ToString();
                 }
             }
 
@@ -151,16 +152,6 @@ namespace IPR.GUI_s
 
         int counter = 1;
 
-        private void RPMWChartTimer_Tick(object sender, EventArgs e)
-        {
-            if (courseStarted == true)
-            {
-                RPMWChart.Series[0].Points.AddXY(counter, power);
-                RPMWChart.Series[1].Points.AddXY(counter, heartrate);
-                counter++;
-            }
-        }
-
         private void powerUp_Click(object sender, EventArgs e)
         {
             DoctorClient.ChangePower(1);
@@ -171,7 +162,18 @@ namespace IPR.GUI_s
             DoctorClient.ChangePower(-1);
         }
 
-      
+        private void RPMWChartTimer_Tick_1(object sender, EventArgs e)
+        {
+            if(courseStarted == true && power != 30)
+            {
+                RPMWChart.Series[0].Points.AddXY(counter, power);
+                RPMWChart.Series[1].Points.AddXY(counter, heartrate);
+                counter++;
+                StartAstrandTest();
+            }
+
+
+        }
     }
 }
 
