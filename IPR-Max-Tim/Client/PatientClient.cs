@@ -31,7 +31,7 @@ namespace Client
             });
             WriteTextMessage(clientType);
             
-            bikeDataTimer = new System.Timers.Timer(1200);
+            bikeDataTimer = new System.Timers.Timer(1000);
             bikeDataTimer.AutoReset = true;
             bikeDataTimer.Elapsed += Timer_Elapsed;
             Thread clientThread = new Thread(StartClient);

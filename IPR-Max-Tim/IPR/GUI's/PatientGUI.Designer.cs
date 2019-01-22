@@ -45,6 +45,7 @@
             this.startTest = new System.Windows.Forms.Button();
             this.RPMWChartTimer = new System.Windows.Forms.Timer(this.components);
             this.StateLabel = new System.Windows.Forms.Label();
+            this.VO2label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.RPMWChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -155,11 +156,13 @@
             this.RPMWChart.Location = new System.Drawing.Point(311, 232);
             this.RPMWChart.Name = "RPMWChart";
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = "Speed";
             series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series2.Legend = "Legend1";
-            series2.Name = "Series2";
+            series2.Name = "Heartbeat";
             this.RPMWChart.Series.Add(series1);
             this.RPMWChart.Series.Add(series2);
             this.RPMWChart.Size = new System.Drawing.Size(467, 206);
@@ -184,7 +187,8 @@
             // 
             // RPMWChartTimer
             // 
-            this.RPMWChartTimer.Interval = 500;
+            this.RPMWChartTimer.Interval = 1000;
+            this.RPMWChartTimer.Tick += new System.EventHandler(this.RPMWChartTimer_Tick_1);
             // 
             // StateLabel
             // 
@@ -197,11 +201,23 @@
             this.StateLabel.TabIndex = 19;
             this.StateLabel.Text = "State:";
             // 
+            // VO2label
+            // 
+            this.VO2label.AutoSize = true;
+            this.VO2label.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.VO2label.Location = new System.Drawing.Point(22, 354);
+            this.VO2label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.VO2label.Name = "VO2label";
+            this.VO2label.Size = new System.Drawing.Size(42, 19);
+            this.VO2label.TabIndex = 20;
+            this.VO2label.Text = "VO2:";
+            // 
             // PatientGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.VO2label);
             this.Controls.Add(this.StateLabel);
             this.Controls.Add(this.startTest);
             this.Controls.Add(this.RPMWChart);
@@ -235,5 +251,6 @@
         private System.Windows.Forms.Button startTest;
         private System.Windows.Forms.Timer RPMWChartTimer;
         private System.Windows.Forms.Label StateLabel;
+        private System.Windows.Forms.Label VO2label;
     }
 }

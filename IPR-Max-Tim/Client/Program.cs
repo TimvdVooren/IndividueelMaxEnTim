@@ -11,7 +11,7 @@ namespace Client
     {
         private static string ServerIP = "localhost";
         private static int ServerPort = 6666;
-        private static int bikeSort = 1;
+        private static int bikeSort = 0;
 
         static void Main(string[] args)
         {
