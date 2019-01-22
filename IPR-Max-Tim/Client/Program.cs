@@ -17,7 +17,7 @@ namespace Client
         {
             PatientClient patientClient = new PatientClient(ServerIP, ServerPort);
             if (bikeSort == 0)
-                patientClient.bike = new RealBike("COM5");
+                patientClient.bike = new RealBike("COM3");
             else if (bikeSort == 1)
                 patientClient.bike = new SimulatedBike();
         }

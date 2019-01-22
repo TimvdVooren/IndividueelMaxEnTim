@@ -53,7 +53,7 @@ namespace Client.Bicycle
             SerialConnection.WriteLine("ST");
             string bikeData = SerialConnection.ReadLine();
 
-            if (bikeData.Contains("ERROR") || bikeData.Contains("RUN") || bikeData.Contains("ACK"))
+            if (bikeData.Contains("ERROR") || bikeData.Contains("RUN") || bikeData.Contains("ACK") || bikeData.Contains("U"))
                 return ReadData();
             else
                 return new BikeDataPackage(bikeData);
