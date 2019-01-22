@@ -37,38 +37,51 @@ namespace IPR.GUI_s
         public void BikeDataToGUI(string data)
         {
             dynamic receivedData = JsonConvert.DeserializeObject(data);
-            powerLabel.Text = "Power: " + receivedData.power;
             this.power = receivedData.power;
 
             string rpm = receivedData.rpm;
-
-            if (int.Parse(rpm) <= 50 && int.Parse(rpm) != 0)
-                DoctorClient.ChangePower(1);
-            else if (int.Parse(rpm) >= 60 && int.Parse(rpm) != 0)
-                DoctorClient.ChangePower(-1);
-
             rpmLabel.Text = "RPM: " + rpm;
 
-            string time = receivedData.time;
-            string[] timeComponents = time.Split(':');
+            int minutes = receivedData.minutes;
+            int seconds = receivedData.seconds;
+            string testState = "";
 
-            int i = 0;
-            if (timeComponents.Length == 3)
-                i = 1;
-
-            if (int.Parse(timeComponents[i]) < 2)
-                time = time + " WARMING UP";
-            else if (int.Parse(timeComponents[i]) < 6)
-                time = time + " RUNNING TEST";
-            else if (int.Parse(timeComponents[i]) < 7)
-                time = time + " COOLING DOWN";
+            if (minutes < 2)
+            {
+                testState = " WARMING UP";
+                //if (power > 110)
+                //    DoctorClient.ChangePower(-1);
+                //else
+                //    DoctorClient.ChangePower(1);
+            }
+            else if (minutes < 6)
+                testState = " RUNNING TEST";
+            else if (minutes < 7)
+            {
+                testState = " COOLING DOWN";
+                if (power > 60)
+                    DoctorClient.ChangePower(-1);
+                else
+                    DoctorClient.ChangePower(1);
+            }
             else
-                time = time + " TEST FINISHED";
+            {
+                testState = " TEST FINISHED";
+                DoctorClient.StopCourse();
+            }
 
-            timeLabel.Text = "Time: " + time;
+            int dataHeartrate = receivedData.heartrate;
+
+            //if (dataHeartrate < 130 && int.Parse(rpm) > 55)
+            //    DoctorClient.ChangePower(1);
+            //else if (dataHeartrate >= 130 && int.Parse(rpm) < 55)
+            //    DoctorClient.ChangePower(-1);
+
+            powerLabel.Text = "Power: " + power;
+            timeLabel.Text = "Time: " + minutes + ":" + seconds + testState;
             distanceLabel.Text = "Distance: " + receivedData.distance;
             energyLabel.Text = "Energy: " + receivedData.energy;
-            heartrateLabel.Text = "Heartrate: " + receivedData.heartrate;
+            heartrateLabel.Text = "Heartrate: " + dataHeartrate;
         }
 
         private double CalulateVO2()

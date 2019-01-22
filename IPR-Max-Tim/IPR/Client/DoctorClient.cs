@@ -69,6 +69,15 @@ namespace IPR.Client
             patientDataThread.Start();
         }
 
+        public void StopCourse()
+        {
+            string data = JsonConvert.SerializeObject(new
+            {
+                patientID = "patient_0",
+            });
+            WriteTextMessage(CreateJsonCommand("course_stop", data));
+        }
+
         public void ChangePower(int increment)
         {
             //DIT IS HARDCODED PATIENTID

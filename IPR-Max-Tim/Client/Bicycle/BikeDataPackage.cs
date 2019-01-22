@@ -11,6 +11,8 @@ namespace Client.Bicycle
         public int Power { get; set; }
         public int Rpm { get; set; }
         public string Time { get; set; }
+        public int Minutes { get; set; }
+        public int Seconds { get; set; }
         public int Distance { get; set; }
         public int Energy { get; set; }
         public int HeartRate { get; set; }
@@ -26,9 +28,9 @@ namespace Client.Bicycle
             this.Energy = int.Parse(values[5]);
 
             string[] timeComponents = values[6].Split(':');
-            int minutes = int.Parse(timeComponents[0]);
-            int seconds = int.Parse(timeComponents[1]);
-            this.Time = string.Format("{0}:{1}", minutes, seconds);
+            this.Minutes = int.Parse(timeComponents[0]);
+            this.Seconds = int.Parse(timeComponents[1]);
+            this.Time = string.Format("{0}:{1}", Minutes, Seconds);
         }
 
         public BikeDataPackage(String[] values)
@@ -39,10 +41,13 @@ namespace Client.Bicycle
             this.Power = int.Parse(values[4]);
             this.Energy = int.Parse(values[5]);
 
-            string[] timeComponents = values[6].Split(':');
-            int minutes = int.Parse(timeComponents[0]);
-            int seconds = int.Parse(timeComponents[1]);
-            this.Time = string.Format("{0}:{1}", minutes, seconds);
+            if (values[6] != null)
+            {
+                string[] timeComponents = values[6].Split(':');
+                this.Minutes = int.Parse(timeComponents[0]);
+                this.Seconds = int.Parse(timeComponents[1]);
+                this.Time = string.Format("{0}:{1}", Minutes, Seconds);
+            }
         }
 
         public override string ToString()

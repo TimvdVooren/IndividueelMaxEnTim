@@ -31,7 +31,7 @@ namespace Client
             });
             WriteTextMessage(clientType);
             
-            bikeDataTimer = new System.Timers.Timer(500);
+            bikeDataTimer = new System.Timers.Timer(1200);
             bikeDataTimer.AutoReset = true;
             bikeDataTimer.Elapsed += Timer_Elapsed;
             Thread clientThread = new Thread(StartClient);
@@ -75,10 +75,11 @@ namespace Client
             {
                 power = bdp.Power,
                 rpm = bdp.Rpm,
-                time = bdp.Time,
+                minutes = bdp.Minutes,
+                seconds = bdp.Seconds,
                 distance = bdp.Distance,
                 energy = bdp.Energy,
-                heartrate = bdp.Energy,
+                heartrate = bdp.HeartRate,
             });
             WriteTextMessage(CreateJsonCommand("bike_data", data));
         }

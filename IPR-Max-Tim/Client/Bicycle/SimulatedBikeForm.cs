@@ -26,15 +26,13 @@ namespace Client.Bicycle
         public SimulatedBikeForm()
         {
             InitializeComponent();
+            endCourseButton.Enabled = false;
         }
 
         public void Reset()
         {
             rpmTrackBar.Value = 0;
-
             startCourseButton.Enabled = true;
-            endCourseButton.Enabled = false;
-            courseThread.Abort();
         }
 
         public void SetPower(int power)
@@ -99,11 +97,16 @@ namespace Client.Bicycle
                     seconds = 0;
                 }
 
-                ConvertTime();
-                rpmTrackBar.Value = rpm;
-                timeLabel.Text = "Time: " + time;
+                Invoke(new Action(() => CourseInvoke()));
                 Thread.Sleep(1000);
             }
+        }
+
+        public void CourseInvoke()
+        {
+            ConvertTime();
+            rpmTrackBar.Value = rpm;
+            timeLabel.Text = "Time: " + time;
         }
 
         private void ConvertTime()
@@ -132,7 +135,9 @@ namespace Client.Bicycle
 
         private void endCourseButton_Click(object sender, EventArgs e)
         {
+            endCourseButton.Enabled = false;
             Reset();
+            courseThread.Abort();
         }
 
         private void rpmTrackBar_Scroll(object sender, EventArgs e)
@@ -143,6 +148,11 @@ namespace Client.Bicycle
         private void heartRateTrackbar_Scroll(object sender, EventArgs e)
         {
             heartrate = heartRateTrackbar.Value;
+        }
+
+        private void SimulatedBikeForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -64,6 +64,7 @@
             // rpmTrackBar
             // 
             this.rpmTrackBar.Location = new System.Drawing.Point(106, 78);
+            this.rpmTrackBar.Maximum = 100;
             this.rpmTrackBar.Name = "rpmTrackBar";
             this.rpmTrackBar.Size = new System.Drawing.Size(247, 45);
             this.rpmTrackBar.TabIndex = 2;
@@ -81,6 +82,7 @@
             // heartRateTrackbar
             // 
             this.heartRateTrackbar.Location = new System.Drawing.Point(106, 145);
+            this.heartRateTrackbar.Maximum = 150;
             this.heartRateTrackbar.Name = "heartRateTrackbar";
             this.heartRateTrackbar.Size = new System.Drawing.Size(247, 45);
             this.heartRateTrackbar.TabIndex = 4;
@@ -122,6 +124,7 @@
             this.MaximizeBox = false;
             this.Name = "SimulatedBikeForm";
             this.Text = "SimulatedBikeForm";
+            this.Load += new System.EventHandler(this.SimulatedBikeForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rpmTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heartRateTrackbar)).EndInit();
             this.ResumeLayout(false);
