@@ -16,7 +16,7 @@ namespace IPR.GUI_s
     {
         private DoctorClient DoctorClient;
         public double power;
-        public double speed;
+        public String rpm;
         public  int leeftijd;
         public double heartrate;
         public string gender;
@@ -84,20 +84,47 @@ namespace IPR.GUI_s
             heartrateLabel.Text = "Heartrate: " + dataHeartrate;
         }
 
-        private double CalulateVO2()
+        private void StartAstrandTest()
+        {
+            double totalheartrate = 0;
+
+            if(counter >= 0 && counter >= 120)
+            {
+                StateLabel.Text = "Warming up";
+            }
+             if (counter <= 120 && counter >= 360)
+             {
+                if (heartrate <= 130)
+                {
+                    StateLabel.Text = "Steady";
+                    StateLabel.ForeColor = Color.Green;
+
+                    totalheartrate += heartrate;
+                }
+                else
+                {
+                    StateLabel.Text = "Not Steady";
+                    StateLabel.ForeColor = Color.Red;
+                }
+             }
+            if (counter >= 360 && counter <= 480)
+            {
+                if (StateLabel.Text == "Steady")
+                {
+                    totalheartrate = totalheartrate / 140;
+                    CalulateVO2(totalheartrate);
+                }
+            }
+
+        }
+
+        private double CalulateVO2(double  totalHeartrate)
         {
             int age = leeftijd;
-            double totalheartrate = 0;
+            double totalheartrate = totalHeartrate;
             double load = 0;
             double VO2 = 0;
 
-            if (counter >= 120 && counter >= 360)
-            {
-                totalheartrate += heartrate;
-            }
-            if (counter >= 360)
-            {
-                totalheartrate = totalheartrate / counter;
                 load = power;
                 if (gender == "male")
                 {
@@ -107,8 +134,6 @@ namespace IPR.GUI_s
                 {
                     VO2 = (0.00193 * (load * 6.1182972778676) + 0.326) / (0.769 * totalheartrate - 56.1) * 100;
                 }
-
-            }
 
             if (leeftijd >= 15 && leeftijd < 25) { return VO2 * 1.1; }
             if (leeftijd >= 25 && leeftijd < 35) { return VO2 * 1; }
@@ -136,7 +161,7 @@ namespace IPR.GUI_s
             if (courseStarted == true)
             {
                 RPMWChart.Series[0].Points.AddXY(counter, power);
-                RPMWChart.Series[1].Points.AddXY(counter, speed);
+                RPMWChart.Series[1].Points.AddXY(counter, heartrate);
                 counter++;
             }
         }
@@ -150,5 +175,8 @@ namespace IPR.GUI_s
         {
             DoctorClient.ChangePower(-1);
         }
+
+      
     }
 }
+
