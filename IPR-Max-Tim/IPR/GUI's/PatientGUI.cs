@@ -72,11 +72,6 @@ namespace IPR.GUI_s
 
             int dataHeartrate = receivedData.heartrate;
 
-            //if (dataHeartrate < 130 && int.Parse(rpm) > 55)
-            //    DoctorClient.ChangePower(1);
-            //else if (dataHeartrate >= 130 && int.Parse(rpm) < 55)
-            //    DoctorClient.ChangePower(-1);
-
             powerLabel.Text = "Power: " + power;
             timeLabel.Text = "Time: " + minutes + ":" + seconds + testState;
             distanceLabel.Text = "Distance: " + receivedData.distance;

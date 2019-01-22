@@ -71,6 +71,12 @@ namespace Client
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             BikeDataPackage bdp = bike.ReadData();
+
+            if (bdp.HeartRate < 130 && bdp.Rpm > 55)
+                AddPower(bdp.Power);
+            else if (bdp.HeartRate >= 130 && bdp.Rpm < 55)
+                AddPower(bdp.Power);
+
             string data = JsonConvert.SerializeObject(new
             {
                 power = bdp.Power,
@@ -99,6 +105,19 @@ namespace Client
 
             bike.PutPower(power);
         }
+
+        private void AddPower(int power)
+        {
+            power = power + 5;
+
+            if (power < 25)
+                power = 25;
+            if (power > 400)
+                power = 400;
+
+            bike.PutPower(power);
+        }
+
         private string CreateJsonCommand(string command, string data)
         {
             string output = JsonConvert.SerializeObject(new
