@@ -46,9 +46,9 @@ namespace IPR.GUI_s
             Rpm = receivedData.rpm;
 
             rpmLabel.Text = "RPM: " + Rpm;
-            powerLabel.Text = "Power: " + Power;
+            powerLabel.Text = "Power: " + Power + " Watt";
             timeLabel.Text = "Time: " + Minutes + ":" + Seconds;
-            heartrateLabel.Text = "Heartrate: " + Heartrate;
+            heartrateLabel.Text = "Heartrate: " + Heartrate + "BPM";
         }
 
         private void StartAstrandTest()
@@ -85,7 +85,7 @@ namespace IPR.GUI_s
             {
                 totalheartrate = totalheartrate / 140;
                 double VO2 = CalulateVO2(totalheartrate);
-                VO2label.Text = VO2.ToString();
+                VO2label.Text = "VO2: "+ VO2.ToString() + " L/min";
                 DoctorClient.SavePatientData(patient.Name, VO2);
             }
 
