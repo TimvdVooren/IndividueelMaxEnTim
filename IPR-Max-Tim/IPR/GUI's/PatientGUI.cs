@@ -15,131 +15,104 @@ namespace IPR.GUI_s
     partial class PatientGUI : Form
     {
         private DoctorClient DoctorClient;
-        public double power;
-        public String rpm;
-        public  int leeftijd;
-        public double heartrate;
-        public string gender;
-
+        private Patient patient;
+        public double Power;
+        public int Rpm;
+        private int Minutes;
+        private int Seconds;
+        public double Heartrate;
         private bool courseStarted = false;
 
-        public PatientGUI(DoctorClient DoctorClient)
+        public PatientGUI(DoctorClient DoctorClient, Patient patient)
         {
             this.DoctorClient = DoctorClient;
+            this.patient = patient;
             InitializeComponent();
             this.RPMWChart.ChartAreas[0].AxisX.LabelStyle.Format = "";
-            this.RPMWChart.Series[0].Name = "Power";
+            this.RPMWChart.Series[0].Name = "RPM";
             this.RPMWChart.Series[1].Name = "Heartbeat";
-            //RPMWChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            this.RPMWChart.Series[2].Name = "Power";
             RPMWChartTimer.Start();
         }
 
         public void BikeDataToGUI(string data)
         {
             dynamic receivedData = JsonConvert.DeserializeObject(data);
-            this.power = receivedData.power;
 
-            string rpm = receivedData.rpm;
-            rpmLabel.Text = "RPM: " + rpm;
+            Power = receivedData.power;
+            Minutes = receivedData.minutes;
+            Seconds = receivedData.seconds;
+            Heartrate = receivedData.heartrate;
+            Rpm = receivedData.rpm;
 
-            int minutes = receivedData.minutes;
-            int seconds = receivedData.seconds;
-            string testState = "";
-
-            if (minutes < 2)
-            {
-                testState = " WARMING UP";
-                //if (power > 110)
-                //    DoctorClient.ChangePower(-1);
-                //else
-                //    DoctorClient.ChangePower(1);
-            }
-            else if (minutes < 6)
-                testState = " RUNNING TEST";
-            else if (minutes < 7)
-            {
-                testState = " COOLING DOWN";
-                if (power > 60)
-                    DoctorClient.ChangePower(-1);
-                else
-                    DoctorClient.ChangePower(1);
-            }
-            else
-            {
-                testState = " TEST FINISHED";
-                DoctorClient.StopCourse();
-            }
-
-            int dataHeartrate = receivedData.heartrate;
-
-            powerLabel.Text = "Power: " + power;
-            timeLabel.Text = "Time: " + minutes + ":" + seconds + testState;
-            distanceLabel.Text = "Distance: " + receivedData.distance;
-            energyLabel.Text = "Energy: " + receivedData.energy;
-            heartrateLabel.Text = "Heartrate: " + dataHeartrate;
+            rpmLabel.Text = "RPM: " + Rpm;
+            powerLabel.Text = "Power: " + Power;
+            timeLabel.Text = "Time: " + Minutes + ":" + Seconds;
+            heartrateLabel.Text = "Heartrate: " + Heartrate;
         }
 
         private void StartAstrandTest()
         {
             double totalheartrate = 0;
 
-            if(counter >= 0 && counter <= 120)
+            if(counter >= 0 && counter < 120)
             {
                 StateLabel.Text = "Warming up";
             }
-             if (counter >= 120 && counter <= 360)
-             {
-                if (heartrate >= 130)
+
+            if (counter >= 120 && counter < 360)
+            {
+                if (Heartrate >= 130)
                 {
                     StateLabel.Text = "Steady";
                     StateLabel.ForeColor = Color.Green;
 
-                    totalheartrate += heartrate;
+                    totalheartrate += Heartrate;
                 }
                 else
                 {
                     StateLabel.Text = "Not Steady";
                     StateLabel.ForeColor = Color.Red;
                 }
-             }
-            if (counter >= 360 && counter <= 480)
+            }
+
+            if (counter >= 360 && counter < 420)
             {
-                if (StateLabel.Text == "Steady")
-                {
-                    totalheartrate = totalheartrate / 140;
-                    double VO2 = CalulateVO2(totalheartrate);
-                    VO2label.Text = VO2.ToString();
-                }
+                StateLabel.Text = "Cooling down";
+            }
+
+            if(counter >= 420)
+            {
+                totalheartrate = totalheartrate / 140;
+                double VO2 = CalulateVO2(totalheartrate);
+                VO2label.Text = VO2.ToString();
+                DoctorClient.SavePatientData(patient.Name, VO2);
             }
 
         }
 
         private double CalulateVO2(double  totalHeartrate)
         {
-            int age = leeftijd;
-            double totalheartrate = totalHeartrate;
-            double load = 0;
             double VO2 = 0;
-
-                load = power;
-                if (gender == "male")
+            
+                if (patient.Gender == "male")
                 {
-                    VO2 = (0.00212 * (load * 6.1182972778676) + 0.299) / (0.769 * totalheartrate - 48.5) * 100;
+                    VO2 = (0.00212 * (patient.Weight * 6.1182972778676) + 0.299) / (0.769 * totalHeartrate - 48.5) * 100;
                 }
                 else
                 {
-                    VO2 = (0.00193 * (load * 6.1182972778676) + 0.326) / (0.769 * totalheartrate - 56.1) * 100;
+                    VO2 = (0.00193 * (patient.Weight * 6.1182972778676) + 0.326) / (0.769 * totalHeartrate - 56.1) * 100;
                 }
 
-            if (leeftijd >= 15 && leeftijd < 25) { return VO2 * 1.1; }
-            if (leeftijd >= 25 && leeftijd < 35) { return VO2 * 1; }
-            if (leeftijd >= 35 && leeftijd < 40) { return VO2 * 0.87; }
-            if (leeftijd >= 40 && leeftijd < 45) { return VO2 * 0.83; }
-            if (leeftijd >= 45 && leeftijd < 50) { return VO2 * 0.78; }
-            if (leeftijd >= 50 && leeftijd < 55) { return VO2 * 0.75; }
-            if (leeftijd >= 55 && leeftijd < 60) { return VO2 * 0.71; }
-            if (leeftijd >= 60 && leeftijd < 65) { return VO2 * 0.68; }
-            if (leeftijd >= 65) { return VO2 * 0.65; }
+            if (patient.Age >= 15 && patient.Age < 25) { return VO2 * 1.1; }
+            if (patient.Age >= 25 && patient.Age < 35) { return VO2 * 1; }
+            if (patient.Age >= 35 && patient.Age < 40) { return VO2 * 0.87; }
+            if (patient.Age >= 40 && patient.Age < 45) { return VO2 * 0.83; }
+            if (patient.Age >= 45 && patient.Age < 50) { return VO2 * 0.78; }
+            if (patient.Age >= 50 && patient.Age < 55) { return VO2 * 0.75; }
+            if (patient.Age >= 55 && patient.Age < 60) { return VO2 * 0.71; }
+            if (patient.Age >= 60 && patient.Age < 65) { return VO2 * 0.68; }
+            if (patient.Age >= 65) { return VO2 * 0.65; }
 
             return VO2;
         }
@@ -150,7 +123,6 @@ namespace IPR.GUI_s
             DoctorClient.StartCourse();
         }
 
-        int counter = 1;
 
         private void powerUp_Click(object sender, EventArgs e)
         {
@@ -162,17 +134,19 @@ namespace IPR.GUI_s
             DoctorClient.ChangePower(-1);
         }
 
+        private int counter = 1;
+
         private void RPMWChartTimer_Tick_1(object sender, EventArgs e)
         {
-            if(courseStarted == true && power != 30)
+            if(courseStarted == true && Rpm > 0)
             {
-                RPMWChart.Series[0].Points.AddXY(counter, power);
-                RPMWChart.Series[1].Points.AddXY(counter, heartrate);
-                counter++;
+                counter = Minutes * 60 + Seconds;
+                RPMWChart.Series[0].Points.AddXY(counter, Rpm);
+                RPMWChart.Series[1].Points.AddXY(counter, Heartrate);
+                RPMWChart.Series[2].Points.AddXY(counter, Power);
+                //counter++;
                 StartAstrandTest();
             }
-
-
         }
     }
 }

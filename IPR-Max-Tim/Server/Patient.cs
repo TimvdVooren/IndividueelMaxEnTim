@@ -12,6 +12,7 @@ namespace Server
         public int Age { get; set; }
         public string Gender { get; set; }
         public int Weight { get; set; }
+        public double Vo2 { get; set; }
 
         public Patient(string Name, int Age, string Gender, int Weight)
         {
@@ -19,6 +20,7 @@ namespace Server
             this.Age = Age;
             this.Gender = Gender;
             this.Weight = Weight;
+            Vo2 = 0;
         }
 
         public override string ToString()

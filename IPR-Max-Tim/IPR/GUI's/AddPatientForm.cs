@@ -36,7 +36,7 @@ namespace IPR.GUI_s
             {
                 Patient patient = new Patient(patientName, patientAge, patientGender, patientWeight);
                 DoctorClient.AddPatient(patient);
-                PatientGUI patientGUI = new PatientGUI(DoctorClient);
+                PatientGUI patientGUI = new PatientGUI(DoctorClient, patient);
                 specialistForm.AddPatientGUI(patientGUI);
                 patientGUI.Show();
                 this.Dispose();

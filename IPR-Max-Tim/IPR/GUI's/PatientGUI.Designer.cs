@@ -33,11 +33,10 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.heartrateLabel = new System.Windows.Forms.Label();
             this.powerDown = new System.Windows.Forms.Button();
             this.powerUp = new System.Windows.Forms.Button();
-            this.energyLabel = new System.Windows.Forms.Label();
-            this.distanceLabel = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
             this.rpmLabel = new System.Windows.Forms.Label();
             this.powerLabel = new System.Windows.Forms.Label();
@@ -53,7 +52,7 @@
             // 
             this.heartrateLabel.AutoSize = true;
             this.heartrateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.heartrateLabel.Location = new System.Drawing.Point(22, 293);
+            this.heartrateLabel.Location = new System.Drawing.Point(22, 246);
             this.heartrateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.heartrateLabel.Name = "heartrateLabel";
             this.heartrateLabel.Size = new System.Drawing.Size(83, 19);
@@ -67,7 +66,7 @@
             this.powerDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.powerDown.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.powerDown.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.powerDown.Location = new System.Drawing.Point(534, 143);
+            this.powerDown.Location = new System.Drawing.Point(429, 88);
             this.powerDown.Margin = new System.Windows.Forms.Padding(2);
             this.powerDown.Name = "powerDown";
             this.powerDown.Size = new System.Drawing.Size(111, 31);
@@ -83,7 +82,7 @@
             this.powerUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.powerUp.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.powerUp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.powerUp.Location = new System.Drawing.Point(389, 143);
+            this.powerUp.Location = new System.Drawing.Point(210, 88);
             this.powerUp.Margin = new System.Windows.Forms.Padding(2);
             this.powerUp.Name = "powerUp";
             this.powerUp.Size = new System.Drawing.Size(111, 31);
@@ -91,28 +90,6 @@
             this.powerUp.Text = "Power up";
             this.powerUp.UseVisualStyleBackColor = false;
             this.powerUp.Click += new System.EventHandler(this.powerUp_Click);
-            // 
-            // energyLabel
-            // 
-            this.energyLabel.AutoSize = true;
-            this.energyLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.energyLabel.Location = new System.Drawing.Point(22, 261);
-            this.energyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.energyLabel.Name = "energyLabel";
-            this.energyLabel.Size = new System.Drawing.Size(64, 19);
-            this.energyLabel.TabIndex = 13;
-            this.energyLabel.Text = "Energy: ";
-            // 
-            // distanceLabel
-            // 
-            this.distanceLabel.AutoSize = true;
-            this.distanceLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.distanceLabel.Location = new System.Drawing.Point(22, 232);
-            this.distanceLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.distanceLabel.Name = "distanceLabel";
-            this.distanceLabel.Size = new System.Drawing.Size(77, 19);
-            this.distanceLabel.TabIndex = 12;
-            this.distanceLabel.Text = "Distance: ";
             // 
             // timeLabel
             // 
@@ -149,23 +126,33 @@
             // 
             // RPMWChart
             // 
+            this.RPMWChart.BackColor = System.Drawing.Color.Transparent;
+            this.RPMWChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.RPMWChart.BorderlineWidth = 10;
+            this.RPMWChart.BorderSkin.BorderWidth = 10;
             chartArea1.Name = "ChartArea1";
             this.RPMWChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.RPMWChart.Legends.Add(legend1);
-            this.RPMWChart.Location = new System.Drawing.Point(311, 232);
+            this.RPMWChart.Location = new System.Drawing.Point(224, 144);
             this.RPMWChart.Name = "RPMWChart";
+            this.RPMWChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
-            series1.Name = "Speed";
+            series1.Name = "RPM";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series2.Legend = "Legend1";
             series2.Name = "Heartbeat";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Power";
             this.RPMWChart.Series.Add(series1);
             this.RPMWChart.Series.Add(series2);
-            this.RPMWChart.Size = new System.Drawing.Size(467, 206);
+            this.RPMWChart.Series.Add(series3);
+            this.RPMWChart.Size = new System.Drawing.Size(564, 294);
             this.RPMWChart.TabIndex = 17;
             this.RPMWChart.Text = "chart1";
             // 
@@ -176,7 +163,7 @@
             this.startTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startTest.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startTest.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.startTest.Location = new System.Drawing.Point(296, 43);
+            this.startTest.Location = new System.Drawing.Point(280, 32);
             this.startTest.Margin = new System.Windows.Forms.Padding(2);
             this.startTest.Name = "startTest";
             this.startTest.Size = new System.Drawing.Size(204, 31);
@@ -194,7 +181,7 @@
             // 
             this.StateLabel.AutoSize = true;
             this.StateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.StateLabel.Location = new System.Drawing.Point(22, 323);
+            this.StateLabel.Location = new System.Drawing.Point(22, 276);
             this.StateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StateLabel.Name = "StateLabel";
             this.StateLabel.Size = new System.Drawing.Size(49, 19);
@@ -205,7 +192,7 @@
             // 
             this.VO2label.AutoSize = true;
             this.VO2label.Font = new System.Drawing.Font("Century Gothic", 10.2F);
-            this.VO2label.Location = new System.Drawing.Point(22, 354);
+            this.VO2label.Location = new System.Drawing.Point(22, 307);
             this.VO2label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.VO2label.Name = "VO2label";
             this.VO2label.Size = new System.Drawing.Size(42, 19);
@@ -216,6 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.VO2label);
             this.Controls.Add(this.StateLabel);
@@ -224,8 +212,6 @@
             this.Controls.Add(this.heartrateLabel);
             this.Controls.Add(this.powerDown);
             this.Controls.Add(this.powerUp);
-            this.Controls.Add(this.energyLabel);
-            this.Controls.Add(this.distanceLabel);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.rpmLabel);
             this.Controls.Add(this.powerLabel);
@@ -242,8 +228,6 @@
         private System.Windows.Forms.Label heartrateLabel;
         private System.Windows.Forms.Button powerDown;
         private System.Windows.Forms.Button powerUp;
-        private System.Windows.Forms.Label energyLabel;
-        private System.Windows.Forms.Label distanceLabel;
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Label rpmLabel;
         private System.Windows.Forms.Label powerLabel;

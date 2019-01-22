@@ -122,6 +122,17 @@ namespace IPR.Client
                 return null;
         }
 
+        public void SavePatientData(string patientName, double vo2)
+        {
+            string data = JsonConvert.SerializeObject(new
+            {
+                patientName = patientName,
+                vo2 = vo2,
+            });
+
+            WriteTextMessage(CreateJsonCommand("save_patient", data));
+        }
+
         public void Disconnect()
         {
             WriteTextMessage(CreateJsonCommand("client_disconnect", ""));

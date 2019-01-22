@@ -74,6 +74,12 @@ namespace Server
 
             Patient testPatient = new Patient("test", 18, "male", 90);
             WritePatientToFile(testPatient);
+            Patient p1 = new Patient("Tim", 18, "male", 95);
+            p1.Vo2 = 3.3152922;
+            WritePatientToFile(p1);
+            Patient p2 = new Patient("Max", 19, "male", 95);
+            p2.Vo2 = 3.5024143;
+            WritePatientToFile(p2);
 
             string JsonAccounts = JsonConvert.SerializeObject(DoctorAccounts);
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "DoctorData.txt");

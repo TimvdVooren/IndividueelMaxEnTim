@@ -77,6 +77,7 @@ namespace Server
                 case "add_patient": ReceivedAddPatient(data); break;
                 case "patient_data": ReceivedPatientData(data); break;
                 case "client_disconnect": ReceivedClientDisconnect(); break;
+                case "save_patient": ReceivedSavePatient(data); break;
             }
         }
 
@@ -152,6 +153,17 @@ namespace Server
 
             string patientData = Server.ReadPatientFromFile(patientName);
             WriteTextMessage(this.Client, patientData);
+        }
+
+        private void ReceivedSavePatient(string data)
+        {
+            dynamic patientData = JsonConvert.DeserializeObject(data);
+            string patientName = patientData.patientName;
+            double vo2 = patientData.vo2;
+
+            Patient patient = JsonConvert.DeserializeObject<Patient>(Server.ReadPatientFromFile(patientName));
+            patient.Vo2 = vo2;
+            Server.WritePatientToFile(patient);
         }
 
         private void SendDataRequest()

@@ -30,10 +30,7 @@ namespace Client
                 }
             });
             WriteTextMessage(clientType);
-            
-            bikeDataTimer = new System.Timers.Timer(1000);
-            bikeDataTimer.AutoReset = true;
-            bikeDataTimer.Elapsed += Timer_Elapsed;
+
             Thread clientThread = new Thread(StartClient);
             clientThread.Start();
         }
@@ -57,6 +54,9 @@ namespace Client
             {
                 case "course_start":
                     bike.Reset();
+                    bikeDataTimer = new System.Timers.Timer(1000);
+                    bikeDataTimer.AutoReset = true;
+                    bikeDataTimer.Elapsed += Timer_Elapsed;
                     bikeDataTimer.Start();
                     break;
                 case "course_stop":
@@ -72,10 +72,13 @@ namespace Client
         {
             BikeDataPackage bdp = bike.ReadData();
 
-            if (bdp.HeartRate < 130 && bdp.Rpm > 55)
-                AddPower(bdp.Power);
-            else if (bdp.HeartRate >= 130 && bdp.Rpm < 55)
-                AddPower(bdp.Power);
+            if (bdp.Minutes >= 2)
+            {
+                if (bdp.HeartRate < 130 && bdp.Rpm > 65)
+                    AddPower(bdp.Power, 5);
+                else if (bdp.HeartRate >= 130 && bdp.Rpm < 55)
+                    AddPower(bdp.Power, -5);
+            }
 
             string data = JsonConvert.SerializeObject(new
             {
@@ -83,8 +86,6 @@ namespace Client
                 rpm = bdp.Rpm,
                 minutes = bdp.Minutes,
                 seconds = bdp.Seconds,
-                distance = bdp.Distance,
-                energy = bdp.Energy,
                 heartrate = bdp.HeartRate,
             });
             WriteTextMessage(CreateJsonCommand("bike_data", data));
@@ -106,9 +107,9 @@ namespace Client
             bike.PutPower(power);
         }
 
-        private void AddPower(int power)
+        private void AddPower(int power, int increment)
         {
-            power = power + 5;
+            power = power + increment;
 
             if (power < 25)
                 power = 25;

@@ -32,7 +32,6 @@
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.AddPatientButton = new System.Windows.Forms.Button();
             this.HistoricalDataButton = new System.Windows.Forms.Button();
-            this.PatientsButton = new System.Windows.Forms.Button();
             this.SpecialistTitleOfFormLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.ByciclePanel = new System.Windows.Forms.Panel();
@@ -45,7 +44,6 @@
             this.MenuPanel.BackColor = System.Drawing.Color.DimGray;
             this.MenuPanel.Controls.Add(this.AddPatientButton);
             this.MenuPanel.Controls.Add(this.HistoricalDataButton);
-            this.MenuPanel.Controls.Add(this.PatientsButton);
             this.MenuPanel.Controls.Add(this.SpecialistTitleOfFormLabel);
             this.MenuPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuPanel.ForeColor = System.Drawing.SystemColors.Control;
@@ -86,21 +84,6 @@
             this.HistoricalDataButton.Text = "Historical Data";
             this.HistoricalDataButton.UseVisualStyleBackColor = false;
             this.HistoricalDataButton.Click += new System.EventHandler(this.HistoricalDataButton_Click);
-            // 
-            // PatientsButton
-            // 
-            this.PatientsButton.BackColor = System.Drawing.Color.Silver;
-            this.PatientsButton.FlatAppearance.BorderSize = 0;
-            this.PatientsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PatientsButton.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PatientsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.PatientsButton.Location = new System.Drawing.Point(0, 109);
-            this.PatientsButton.Margin = new System.Windows.Forms.Padding(2);
-            this.PatientsButton.Name = "PatientsButton";
-            this.PatientsButton.Size = new System.Drawing.Size(204, 29);
-            this.PatientsButton.TabIndex = 1;
-            this.PatientsButton.Text = "Patients";
-            this.PatientsButton.UseVisualStyleBackColor = false;
             // 
             // SpecialistTitleOfFormLabel
             // 
@@ -158,7 +141,6 @@
         private System.Windows.Forms.Panel MenuPanel;
         private System.Windows.Forms.Button AddPatientButton;
         private System.Windows.Forms.Button HistoricalDataButton;
-        private System.Windows.Forms.Button PatientsButton;
         private System.Windows.Forms.Label SpecialistTitleOfFormLabel;
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Panel ByciclePanel;

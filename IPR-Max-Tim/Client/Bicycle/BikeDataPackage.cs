@@ -23,9 +23,9 @@ namespace Client.Bicycle
 
             this.HeartRate = int.Parse(values[0]);
             this.Rpm = int.Parse(values[1]);
-            this.Distance = int.Parse(values[3]);
+            //this.Distance = int.Parse(values[3]);
             this.Power = int.Parse(values[4]);
-            this.Energy = int.Parse(values[5]);
+            //this.Energy = int.Parse(values[5]);
 
             string[] timeComponents = values[6].Split(':');
             this.Minutes = int.Parse(timeComponents[0]);
