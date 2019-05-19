@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Client
 {
@@ -11,7 +12,7 @@ namespace Client
     {
         private static string ServerIP = "localhost";
         private static int ServerPort = 6666;
-        private static int bikeSort = 0;
+        private static int bikeSort = 1;
 
         static void Main(string[] args)
         {
@@ -19,7 +20,12 @@ namespace Client
             if (bikeSort == 0)
                 patientClient.bike = new RealBike("COM5");
             else if (bikeSort == 1)
+            {
                 patientClient.bike = new SimulatedBike();
+                SimulatedBikeForm bikeForm = new SimulatedBikeForm();
+                ((SimulatedBike)patientClient.bike).bikeForm = bikeForm;
+                Application.Run(bikeForm);
+            }
         }
     }
 }

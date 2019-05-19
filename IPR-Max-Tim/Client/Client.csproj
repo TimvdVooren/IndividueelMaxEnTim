@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Bicycle\BikeDataPackage.cs" />
     <Compile Include="Bicycle\IBike.cs" />
+    <Compile Include="Bicycle\SimulatedBike.cs" />
     <Compile Include="Bicycle\SimulatedBikeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,7 +61,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bicycle\RealBike.cs" />
-    <Compile Include="Bicycle\SimulatedBike.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

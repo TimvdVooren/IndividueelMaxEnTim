@@ -4,27 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
+using System.Windows.Forms;
 
 namespace Client.Bicycle
 {
     class SimulatedBike : IBike
     {
-        private SimulatedBikeForm bikeForm;
+        public SimulatedBikeForm bikeForm { get; set; }
+        private System.Timers.Timer simulatorTimer;
+        private BikeDataPackage currentBdp;
+        private int seconds = 0;
 
         public SimulatedBike()
         {
-            Thread simulationThread = new Thread(StartSimulator);
-            simulationThread.Start();
+            Thread simulatorThread = new Thread(StartSimulator);
+            simulatorThread.Start();
         }
 
-        public void Reset()
+        private void StartSimulator()
         {
-            bikeForm.Reset();
+            simulatorTimer = new System.Timers.Timer(1000);
+            simulatorTimer.AutoReset = true;
+            simulatorTimer.Elapsed += Timer_Elapsed;
+            simulatorTimer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            seconds++;
+            int heartrate = bikeForm.heartrate;
+            int rpm = bikeForm.rpm;
+            int power = bikeForm.power;
+            int[] currentValues = {heartrate, rpm, 0, power, 0, seconds};
+            currentBdp = new BikeDataPackage(currentValues);
         }
 
         public void Close()
         {
-            //bikeForm.Dispose();
+
         }
 
         public void PutDistance(int distance)
@@ -34,23 +52,22 @@ namespace Client.Bicycle
 
         public void PutPower(int power)
         {
-            bikeForm.SetPower(power);
+            bikeForm.power = power;
         }
 
         public void PutTime(int time)
         {
-            bikeForm.SetTime(time);
+            throw new NotImplementedException();
         }
 
         public BikeDataPackage ReadData()
         {
-            return new BikeDataPackage(bikeForm.ReadBikeData());
+            return currentBdp;
         }
 
-        private void StartSimulator()
+        public void Reset()
         {
-            this.bikeForm = new SimulatedBikeForm();
-            bikeForm.Show();
+            seconds = 0;
         }
     }
 }
