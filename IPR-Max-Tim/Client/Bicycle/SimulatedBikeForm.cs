@@ -15,7 +15,7 @@ namespace Client.Bicycle
     {
         public int heartrate { get; set; } = 70;
         public int rpm { get; set; } = 50;
-        public int power { get; set; } 
+        public int power { get; set; } = 25;
         private System.Timers.Timer simulatorTimer;
         private bool runningSim = false;
 

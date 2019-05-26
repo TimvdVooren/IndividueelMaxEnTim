@@ -95,7 +95,7 @@ namespace IPR.GUI_s
 
         }
 
-        private double CalulateVO2(double  totalHeartrate)
+        private double CalulateVO2(double totalHeartrate)
         {
             double VO2 = 0;
             

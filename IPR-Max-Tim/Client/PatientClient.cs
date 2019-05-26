@@ -71,15 +71,7 @@ namespace Client
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             BikeDataPackage bdp = bike.ReadData();
-
-            if (bdp.Minutes >= 2)
-            {
-                if (bdp.HeartRate < 130 && bdp.Rpm > 65)
-                    AddPower(bdp.Power, 5);
-                else if (bdp.HeartRate >= 130 && bdp.Rpm < 55)
-                    AddPower(bdp.Power, -5);
-            }
-
+  
             string data = JsonConvert.SerializeObject(new
             {
                 power = bdp.Power,
