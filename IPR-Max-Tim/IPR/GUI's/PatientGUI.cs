@@ -47,7 +47,10 @@ namespace IPR.GUI_s
 
             rpmLabel.Text = "RPM: " + Rpm;
             powerLabel.Text = "Power: " + Power + " Watt";
-            timeLabel.Text = "Time: " + Minutes + ":" + Seconds;
+            if(Seconds > 9)
+                timeLabel.Text = "Time: " + Minutes + ":" + Seconds;
+            else
+                timeLabel.Text = "Time: " + Minutes + ":0" + Seconds;
             heartrateLabel.Text = "Heartrate: " + Heartrate + "BPM";
         }
 
@@ -113,6 +116,9 @@ namespace IPR.GUI_s
             if (patient.Age >= 55 && patient.Age < 60) { return VO2 * 0.71; }
             if (patient.Age >= 60 && patient.Age < 65) { return VO2 * 0.68; }
             if (patient.Age >= 65) { return VO2 * 0.65; }
+
+            if (VO2 < 0)
+                VO2 = -VO2;
 
             return VO2;
         }
