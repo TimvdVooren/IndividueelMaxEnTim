@@ -51,11 +51,11 @@
             // heartrateLabel
             // 
             this.heartrateLabel.AutoSize = true;
-            this.heartrateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.heartrateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.heartrateLabel.Location = new System.Drawing.Point(22, 246);
             this.heartrateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.heartrateLabel.Name = "heartrateLabel";
-            this.heartrateLabel.Size = new System.Drawing.Size(83, 19);
+            this.heartrateLabel.Size = new System.Drawing.Size(78, 17);
             this.heartrateLabel.TabIndex = 16;
             this.heartrateLabel.Text = "Heartrate: ";
             // 
@@ -94,33 +94,33 @@
             // timeLabel
             // 
             this.timeLabel.AutoSize = true;
-            this.timeLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.timeLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.timeLabel.Location = new System.Drawing.Point(22, 195);
             this.timeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(47, 19);
+            this.timeLabel.Size = new System.Drawing.Size(49, 17);
             this.timeLabel.TabIndex = 11;
             this.timeLabel.Text = "Time: ";
             // 
             // rpmLabel
             // 
             this.rpmLabel.AutoSize = true;
-            this.rpmLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.rpmLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.rpmLabel.Location = new System.Drawing.Point(22, 164);
             this.rpmLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.rpmLabel.Name = "rpmLabel";
-            this.rpmLabel.Size = new System.Drawing.Size(49, 19);
+            this.rpmLabel.Size = new System.Drawing.Size(47, 17);
             this.rpmLabel.TabIndex = 10;
             this.rpmLabel.Text = "Rpm: ";
             // 
             // powerLabel
             // 
             this.powerLabel.AutoSize = true;
-            this.powerLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.powerLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.powerLabel.Location = new System.Drawing.Point(22, 132);
             this.powerLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.powerLabel.Name = "powerLabel";
-            this.powerLabel.Size = new System.Drawing.Size(59, 19);
+            this.powerLabel.Size = new System.Drawing.Size(57, 17);
             this.powerLabel.TabIndex = 9;
             this.powerLabel.Text = "Power: ";
             // 
@@ -180,22 +180,22 @@
             // StateLabel
             // 
             this.StateLabel.AutoSize = true;
-            this.StateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.StateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.StateLabel.Location = new System.Drawing.Point(22, 276);
             this.StateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StateLabel.Name = "StateLabel";
-            this.StateLabel.Size = new System.Drawing.Size(49, 19);
+            this.StateLabel.Size = new System.Drawing.Size(45, 17);
             this.StateLabel.TabIndex = 19;
             this.StateLabel.Text = "State:";
             // 
             // VO2label
             // 
             this.VO2label.AutoSize = true;
-            this.VO2label.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.VO2label.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
             this.VO2label.Location = new System.Drawing.Point(22, 307);
             this.VO2label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.VO2label.Name = "VO2label";
-            this.VO2label.Size = new System.Drawing.Size(42, 19);
+            this.VO2label.Size = new System.Drawing.Size(42, 17);
             this.VO2label.TabIndex = 20;
             this.VO2label.Text = "VO2:";
             // 

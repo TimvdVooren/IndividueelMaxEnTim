@@ -89,6 +89,7 @@ namespace IPR.GUI_s
                 totalheartrate = totalheartrate / 140;
                 double VO2 = CalulateVO2(totalheartrate);
                 VO2label.Text = "VO2: "+ VO2.ToString() + " L/min";
+                patient.Vo2 = VO2;
                 DoctorClient.SavePatientData(patient.Name, VO2);
             }
 
@@ -117,8 +118,8 @@ namespace IPR.GUI_s
             if (patient.Age >= 60 && patient.Age < 65) { return VO2 * 0.68; }
             if (patient.Age >= 65) { return VO2 * 0.65; }
 
-            if (VO2 < 0)
-                VO2 = -VO2;
+            if (VO2 < 0.0)
+                VO2 = -1.0 * VO2;
 
             return VO2;
         }

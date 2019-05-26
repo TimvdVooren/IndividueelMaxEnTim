@@ -19,6 +19,8 @@ namespace Client.Bicycle
         private System.Timers.Timer simulatorTimer;
         private bool runningSim = false;
 
+        private Random random = new Random();
+
         public SimulatedBikeForm()
         {
             InitializeComponent();
@@ -60,14 +62,19 @@ namespace Client.Bicycle
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Random random = new Random();
-            int increment = random.Next(-1, 1);
+            int increment = random.Next(-1, 2);
             rpm = rpm + increment;
+            if (rpm < 50)
+                rpm = 50;
+            if (rpm > 65)
+                rpm = 65;
 
-            //rpm_trackbar.Value = rpm;
-            //rpm_value.Text = "= " + rpm;
-            //heartrate_trackbar.Value = heartrate;
-            //heartrate_value.Text = "= " + heartrate;
+            Invoke(new Action(() => {
+                rpm_trackbar.Value = rpm;
+                rpm_value.Text = "= " + rpm;
+                heartrate_trackbar.Value = heartrate;
+                heartrate_value.Text = "= " + heartrate;
+            }));
         }
     }
 }
