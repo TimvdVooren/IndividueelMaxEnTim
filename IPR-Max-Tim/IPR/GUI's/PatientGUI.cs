@@ -108,15 +108,16 @@ namespace IPR.GUI_s
                     VO2 = (0.00193 * (patient.Weight * 6.1182972778676) + 0.326) / (0.769 * totalHeartrate - 56.1) * 100;
                 }
 
-            if (patient.Age >= 15 && patient.Age < 25) { return VO2 * 1.1; }
-            if (patient.Age >= 25 && patient.Age < 35) { return VO2 * 1; }
-            if (patient.Age >= 35 && patient.Age < 40) { return VO2 * 0.87; }
-            if (patient.Age >= 40 && patient.Age < 45) { return VO2 * 0.83; }
-            if (patient.Age >= 45 && patient.Age < 50) { return VO2 * 0.78; }
-            if (patient.Age >= 50 && patient.Age < 55) { return VO2 * 0.75; }
-            if (patient.Age >= 55 && patient.Age < 60) { return VO2 * 0.71; }
-            if (patient.Age >= 60 && patient.Age < 65) { return VO2 * 0.68; }
-            if (patient.Age >= 65) { return VO2 * 0.65; }
+            
+            if (patient.Age >= 65) { VO2 = VO2 * 0.65; }
+            else if (patient.Age >= 60) { VO2 = VO2 * 0.68; }
+            else if (patient.Age >= 55) { VO2 = VO2 * 0.71; }
+            else if (patient.Age >= 50) { VO2 = VO2 * 0.75; }
+            else if (patient.Age >= 45) { VO2 = VO2 * 0.78; }
+            else if (patient.Age >= 40) { VO2 = VO2 * 0.83; }
+            else if (patient.Age >= 35) { VO2 = VO2 * 0.87; }
+            else if (patient.Age >= 25) { VO2 = VO2 * 1; }
+            else if(patient.Age >= 15) { VO2 = VO2 * 1.1; }
 
             if (VO2 < 0.0)
                 VO2 = -1.0 * VO2;

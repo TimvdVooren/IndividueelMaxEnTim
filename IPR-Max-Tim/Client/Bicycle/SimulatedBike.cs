@@ -11,11 +11,14 @@ namespace Client.Bicycle
 {
     class SimulatedBike : IBike
     {
-        public SimulatedBikeForm bikeForm { get; set; }
+        //public SimulatedBikeForm bikeForm { get; set; }
         private System.Timers.Timer simulatorTimer;
         private BikeDataPackage currentBdp;
         private BikeDataPackage oldBdp;
         private int seconds = 0;
+        private int heartrate { get; set; } = 70;
+        private int rpm { get; set; } = 50;
+        private int power { get; set; } = 25;
 
         public SimulatedBike()
         {
@@ -34,10 +37,10 @@ namespace Client.Bicycle
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             seconds++;
-            int heartrate = bikeForm.heartrate;
-            int rpm = bikeForm.rpm;
-            int power = bikeForm.power;
-            int[] currentValues = {heartrate, rpm, 0, power, 0, seconds};
+            //int heartrate = heartrate;
+            //int rpm = rpm;
+            //int power = power;
+            int[] currentValues = { heartrate, rpm, 0, power, 0, seconds };
             currentBdp = new BikeDataPackage(currentValues);
 
             adeptPower();
@@ -45,69 +48,108 @@ namespace Client.Bicycle
             adeptHearthbeat();
         }
 
-
         public void adeptPower()
         {
-            //Minutes need to be 2 but this is for test
-            if (currentBdp.Minutes >= 1)
+            if (currentBdp.Minutes >= 2)
             {
                 if (currentBdp.HeartRate < 130)
                 {
                     Random random = new Random();
                     int increment = random.Next(1, 2);
-                    PutPower(bikeForm.power + increment);
+                    PutPower(power + increment);
                 }
                 else if (currentBdp.Rpm < 65)
                 {
-                    PutPower(bikeForm.power - 2);
+                    PutPower(power - 2);
                 }
 
                 if (currentBdp.Rpm > 65)
                 {
-                    PutPower(bikeForm.power + 2);
+                    PutPower(power + 2);
+                }
+            } else if (currentBdp.Minutes >= 0)
+            {
+                if (currentBdp.HeartRate < 100)
+                {
+                    Random random = new Random();
+                    int increment = random.Next(1, 2);
+                    PutPower(power + increment);
+                }
+                else if (currentBdp.Rpm < 55)
+                {
+                    PutPower(power - 2);
+                }
+
+                if (currentBdp.Rpm > 55)
+                {
+                    PutPower(power + 2);
                 }
             }
         }
 
         public void adeptRPM()
         {
-            //Minutes need to be 2 but this is for test
-            if (currentBdp.Minutes >= 1)
+            if (currentBdp.Minutes >= 2)
             {
                 if (currentBdp.HeartRate <= 130 || currentBdp.Power < 70)
                 {
                     Random random = new Random();
                     int increment = random.Next(0,2);
-                    PutRPM(bikeForm.rpm + increment);
+                    PutRPM(rpm + increment);
                 }
                 else if (currentBdp.HeartRate > 135 || currentBdp.Power > 70 && currentBdp.Rpm > 65)
                 {
-                    PutRPM(bikeForm.rpm - 1);
+                    PutRPM(rpm - 1);
+                }
+            } else if (currentBdp.Minutes >= 0)
+            {
+                if (currentBdp.HeartRate <= 100 || currentBdp.Power < 45)
+                {
+                    Random random = new Random();
+                    int increment = random.Next(0, 2);
+                    PutRPM(rpm + increment);
+                }
+                else if (currentBdp.HeartRate > 105 || currentBdp.Power > 45 && currentBdp.Rpm > 55)
+                {
+                    PutRPM(rpm - 1);
                 }
             }
         }
 
         public void adeptHearthbeat()
         {
-            //Minutes need to be 2 but this is for test
-            if (currentBdp.Minutes >= 1)
+            if (currentBdp.Minutes >= 2)
             {
                 if (currentBdp.Rpm < 70)
                 {
                     Random random = new Random();
                     int increment = random.Next(1, 4);
-                    PutHeartBeat(bikeForm.heartrate + increment);
+                    PutHeartBeat(heartrate + increment);
                 }
 
                 if (currentBdp.HeartRate >= 135)
                 {
                     Random random = new Random();
                     int increment = random.Next(2,5);
-                    PutHeartBeat(bikeForm.heartrate - increment);
+                    PutHeartBeat(heartrate - increment);
+                }
+            } else if (currentBdp.Minutes >= 0)
+            {
+                if (currentBdp.Rpm < 60)
+                {
+                    Random random = new Random();
+                    int increment = random.Next(1, 4);
+                    PutHeartBeat(heartrate + increment);
+                }
+
+                if (currentBdp.HeartRate >= 105)
+                {
+                    Random random = new Random();
+                    int increment = random.Next(2, 5);
+                    PutHeartBeat(heartrate - increment);
                 }
             }
         }
-
 
         public void Close()
         {
@@ -121,7 +163,7 @@ namespace Client.Bicycle
 
         public void PutPower(int power)
         {
-            bikeForm.power = power;
+            this.power = power;
         }
 
         public void PutTime(int time)
@@ -131,12 +173,12 @@ namespace Client.Bicycle
 
         public void PutRPM(int rpm)
         {
-            bikeForm.rpm = rpm;
+            this.rpm = rpm;
         }
 
         public void PutHeartBeat(int HeartBeat)
         {
-            bikeForm.heartrate = HeartBeat;
+            heartrate = HeartBeat;
         }
 
         public BikeDataPackage ReadData()

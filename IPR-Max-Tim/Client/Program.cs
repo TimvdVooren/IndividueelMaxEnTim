@@ -22,9 +22,9 @@ namespace Client
             else if (bikeSort == 1)
             {
                 patientClient.bike = new SimulatedBike();
-                SimulatedBikeForm bikeForm = new SimulatedBikeForm();
-                ((SimulatedBike)patientClient.bike).bikeForm = bikeForm;
-                Application.Run(bikeForm);
+                //SimulatedBikeForm bikeForm = new SimulatedBikeForm();
+                //((SimulatedBike)patientClient.bike).bikeForm = bikeForm;
+                //Application.Run(bikeForm);
             }
         }
     }
