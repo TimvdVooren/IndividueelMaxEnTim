@@ -45,6 +45,8 @@
             this.RPMWChartTimer = new System.Windows.Forms.Timer(this.components);
             this.StateLabel = new System.Windows.Forms.Label();
             this.VO2label = new System.Windows.Forms.Label();
+            this.heartratePerFifteen = new System.Windows.Forms.Label();
+            this.rpmHintLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.RPMWChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,7 +183,7 @@
             // 
             this.StateLabel.AutoSize = true;
             this.StateLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-            this.StateLabel.Location = new System.Drawing.Point(22, 276);
+            this.StateLabel.Location = new System.Drawing.Point(22, 301);
             this.StateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StateLabel.Name = "StateLabel";
             this.StateLabel.Size = new System.Drawing.Size(45, 17);
@@ -192,12 +194,34 @@
             // 
             this.VO2label.AutoSize = true;
             this.VO2label.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
-            this.VO2label.Location = new System.Drawing.Point(22, 307);
+            this.VO2label.Location = new System.Drawing.Point(22, 328);
             this.VO2label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.VO2label.Name = "VO2label";
             this.VO2label.Size = new System.Drawing.Size(42, 17);
             this.VO2label.TabIndex = 20;
             this.VO2label.Text = "VO2:";
+            // 
+            // heartratePerFifteen
+            // 
+            this.heartratePerFifteen.AutoSize = true;
+            this.heartratePerFifteen.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+            this.heartratePerFifteen.Location = new System.Drawing.Point(22, 273);
+            this.heartratePerFifteen.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.heartratePerFifteen.Name = "heartratePerFifteen";
+            this.heartratePerFifteen.Size = new System.Drawing.Size(134, 17);
+            this.heartratePerFifteen.TabIndex = 21;
+            this.heartratePerFifteen.Text = "Heartrate per 15 s: ";
+            // 
+            // rpmHintLabel
+            // 
+            this.rpmHintLabel.AutoSize = true;
+            this.rpmHintLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+            this.rpmHintLabel.Location = new System.Drawing.Point(24, 372);
+            this.rpmHintLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.rpmHintLabel.Name = "rpmHintLabel";
+            this.rpmHintLabel.Size = new System.Drawing.Size(177, 17);
+            this.rpmHintLabel.TabIndex = 22;
+            this.rpmHintLabel.Text = "Probeer sneller te fietsen!";
             // 
             // PatientGUI
             // 
@@ -205,6 +229,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.rpmHintLabel);
+            this.Controls.Add(this.heartratePerFifteen);
             this.Controls.Add(this.VO2label);
             this.Controls.Add(this.StateLabel);
             this.Controls.Add(this.startTest);
@@ -236,5 +262,7 @@
         private System.Windows.Forms.Timer RPMWChartTimer;
         private System.Windows.Forms.Label StateLabel;
         private System.Windows.Forms.Label VO2label;
+        private System.Windows.Forms.Label heartratePerFifteen;
+        private System.Windows.Forms.Label rpmHintLabel;
     }
 }

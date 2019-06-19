@@ -20,7 +20,9 @@ namespace IPR.GUI_s
         public int Rpm;
         private int Minutes;
         private int Seconds;
+        private int steadySeconds = 0;
         public double Heartrate;
+        public double HeartratePer15 = 0;
         private bool courseStarted = false;
 
         public PatientGUI(DoctorClient DoctorClient, Patient patient)
@@ -33,8 +35,10 @@ namespace IPR.GUI_s
             this.RPMWChart.Series[1].Name = "Heartbeat";
             this.RPMWChart.Series[2].Name = "Power";
             RPMWChartTimer.Start();
+            rpmHintLabel.Visible = false;
         }
 
+        bool notSteady = false;
         public void BikeDataToGUI(string data)
         {
             dynamic receivedData = JsonConvert.DeserializeObject(data);
@@ -46,17 +50,24 @@ namespace IPR.GUI_s
             Rpm = receivedData.rpm;
 
             rpmLabel.Text = "RPM: " + Rpm;
+            
             powerLabel.Text = "Power: " + Power + " Watt";
             if(Seconds > 9)
                 timeLabel.Text = "Time: " + Minutes + ":" + Seconds;
             else
                 timeLabel.Text = "Time: " + Minutes + ":0" + Seconds;
-            heartrateLabel.Text = "Heartrate: " + Heartrate + "BPM";
+            heartrateLabel.Text = "Heartrate: " + Heartrate + " BPM";
+            heartratePerFifteen.Text = "Heartrate per 15 s: " + HeartratePer15 + " BPM";
         }
 
+        double totalheartrate = 0;
         private void StartAstrandTest()
         {
-            double totalheartrate = 0;
+
+            if(counter % 15 == 0)
+            {
+                HeartratePer15 = Heartrate;
+            }
 
             if(counter >= 0 && counter < 120)
             {
@@ -65,11 +76,19 @@ namespace IPR.GUI_s
 
             if (counter >= 120 && counter < 360)
             {
+                if (Rpm < 60)
+                {
+                    rpmHintLabel.Visible = true;
+                }
+                else
+                {
+                    rpmHintLabel.Visible = false;
+                }
                 if (Heartrate >= 130)
                 {
                     StateLabel.Text = "Steady";
                     StateLabel.ForeColor = Color.Green;
-
+                    steadySeconds++;
                     totalheartrate += Heartrate;
                 }
                 else
@@ -81,16 +100,29 @@ namespace IPR.GUI_s
 
             if (counter >= 360 && counter < 420)
             {
+                if (steadySeconds < 120)
+                {
+                    notSteady = true;
+                }
+                StateLabel.ForeColor = Color.Black;
                 StateLabel.Text = "Cooling down";
             }
 
             if(counter >= 420)
             {
-                totalheartrate = totalheartrate / 140;
-                double VO2 = CalulateVO2(totalheartrate);
-                VO2label.Text = "VO2: "+ VO2.ToString() + " L/min";
-                patient.Vo2 = VO2;
-                DoctorClient.SavePatientData(patient.Name, VO2);
+                courseStarted = false;
+                if (!notSteady)
+                {
+                    totalheartrate = totalheartrate / steadySeconds;
+                    double VO2 = CalulateVO2(totalheartrate);
+                    VO2label.Text = "VO2: " + VO2.ToString().Substring(0, 4) + " L/min";
+                    patient.Vo2 = VO2;
+                    DoctorClient.SavePatientData(patient.Name, VO2);
+                }
+                else
+                {
+                    VO2label.Text = "Geen steady state bereikt";
+                }
             }
 
         }
@@ -130,7 +162,6 @@ namespace IPR.GUI_s
             courseStarted = true;
             DoctorClient.StartCourse();
         }
-
 
         private void powerUp_Click(object sender, EventArgs e)
         {
