@@ -42,10 +42,14 @@ namespace Client.Bicycle
             //int power = power;
             int[] currentValues = { heartrate, rpm, 0, power, 0, seconds };
             currentBdp = new BikeDataPackage(currentValues);
-
-            adeptPower();
-            adeptRPM();
-            adeptHearthbeat();
+            if (seconds < 420)
+            {
+                seconds++;
+                adeptPower();
+                adeptRPM();
+                adeptHearthbeat();
+            }
+           
         }
 
         public void adeptPower()

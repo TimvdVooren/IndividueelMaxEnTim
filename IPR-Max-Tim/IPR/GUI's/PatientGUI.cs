@@ -49,6 +49,8 @@ namespace IPR.GUI_s
             Heartrate = receivedData.heartrate;
             Rpm = receivedData.rpm;
 
+            
+            Rpm = Rpm- 6;
             rpmLabel.Text = "RPM: " + Rpm;
             
             powerLabel.Text = "Power: " + Power + " Watt";
@@ -186,6 +188,8 @@ namespace IPR.GUI_s
                 //counter++;
                 StartAstrandTest();
             }
+
+           
         }
     }
 }
