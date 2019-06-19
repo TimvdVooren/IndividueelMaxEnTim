@@ -54,10 +54,12 @@ namespace IPR.GUI_s
             rpmLabel.Text = "RPM: " + Rpm;
             
             powerLabel.Text = "Power: " + Power + " Watt";
-            if(Seconds > 9)
-                timeLabel.Text = "Time: " + Minutes + ":" + Seconds;
+            int displayMinutes = 7 - Minutes;
+            int displaySeconds = 60 - Seconds;
+            if (Seconds < 10)
+                timeLabel.Text = "Time: " + displayMinutes + ":0" + displaySeconds;
             else
-                timeLabel.Text = "Time: " + Minutes + ":0" + Seconds;
+                timeLabel.Text = "Time: " + displayMinutes + ":" + displaySeconds;
             heartrateLabel.Text = "Heartrate: " + Heartrate + " BPM";
             heartratePerFifteen.Text = "Heartrate per 15 s: " + HeartratePer15 + " BPM";
         }
@@ -86,6 +88,7 @@ namespace IPR.GUI_s
                 {
                     rpmHintLabel.Visible = false;
                 }
+
                 if (Heartrate >= 130)
                 {
                     StateLabel.Text = "Steady";
