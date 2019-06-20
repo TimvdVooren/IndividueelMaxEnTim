@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Newtonsoft.Json.Bson;
 
 namespace Client.Bicycle
 {
@@ -36,25 +37,32 @@ namespace Client.Bicycle
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            seconds++;
             //int heartrate = heartrate;
             //int rpm = rpm;
             //int power = power;
             int[] currentValues = { heartrate, rpm, 0, power, 0, seconds };
             currentBdp = new BikeDataPackage(currentValues);
-            if (seconds < 420)
+            if (seconds < 360)
             {
                 seconds++;
                 adeptPower();
                 adeptRPM();
                 adeptHearthbeat();
             }
+
+            if (seconds >=360 && seconds < 420)
+            {
+                seconds++;
+                AdaptCooldownRPM();
+                AdaptCooldownHeartBeat();
+                AdaptCooldownPower();
+            }
            
         }
 
         public void adeptPower()
         {
-            if (currentBdp.Minutes >= 2)
+            if (currentBdp.Minutes >= 2 && currentBdp.Minutes < 6)
             {
                 if (currentBdp.HeartRate < 130)
                 {
@@ -88,7 +96,7 @@ namespace Client.Bicycle
                 {
                     PutPower(power + 2);
                 }
-            }
+            }  
         }
 
         public void adeptRPM()
@@ -117,7 +125,7 @@ namespace Client.Bicycle
                 {
                     PutRPM(rpm - 1);
                 }
-            }
+            } 
         }
 
         public void adeptHearthbeat()
@@ -152,7 +160,42 @@ namespace Client.Bicycle
                     int increment = random.Next(2, 5);
                     PutHeartBeat(heartrate - increment);
                 }
+            }            
+        }
+
+        public void AdaptCooldownHeartBeat()
+        {
+            
+                if (currentBdp.HeartRate >= 91)
+                {
+                    Random random = new Random();
+                    int increment = random.Next(0, 6);
+                    PutHeartBeat(heartrate - increment);
+                }
+
+                if (currentBdp.HeartRate >= 85 && currentBdp.HeartRate <= 90)
+                {
+                    Random random = new Random();
+                    int increment = random.Next(1, 2);
+                    PutHeartBeat(heartrate + increment);
+                }
+            
+        }
+
+        public void AdaptCooldownRPM()
+        {
+            if (currentBdp.Rpm > 41)
+            {
+               PutRPM(rpm - 5);
             }
+        }
+
+        public void AdaptCooldownPower()
+        {
+           if (currentBdp.Power > 36)
+           {
+              PutPower(power - 5);
+           }
         }
 
         public void Close()
